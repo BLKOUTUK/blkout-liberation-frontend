@@ -1,0 +1,325 @@
+/* BLKOUT Liberation Platform - Liberation Styles */
+/* Layer 1: Community Frontend Presentation Layer */
+/* STRICT SEPARATION: Styling only - NO business logic */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/**
+ * QI COMPLIANCE: Liberation-focused styling system
+ * LIBERATION VALUES: Cultural authenticity and trauma-informed design
+ * ACCESSIBILITY: WCAG 3.0 Bronze compliance throughout
+ * CULTURAL AUTHENTICITY: Black queer joy and Pan-African celebration
+ */
+
+/* Liberation Base Styles */
+@layer base {
+  /* Liberation Typography */
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth; /* Gentle scrolling for trauma-informed UX */
+  }
+
+  body {
+    @apply font-liberation text-liberation-black-power;
+    @apply antialiased leading-relaxed; /* Better readability */
+    background-color: #fafafa; /* Soft background for comfortable reading */
+  }
+
+  /* Accessibility: Focus indicators with liberation colors */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-liberation-pride-purple;
+    @apply ring-2 ring-liberation-pride-purple ring-offset-2;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    body {
+      background-color: white;
+      color: black;
+    }
+    
+    .high-contrast * {
+      border-color: black !important;
+      color: black !important;
+    }
+  }
+
+  /* Reduced motion support for trauma-informed UX */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Liberation heading hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-liberation font-semibold text-liberation-black-power;
+    line-height: 1.2;
+  }
+
+  h1 { @apply text-3xl lg:text-4xl; }
+  h2 { @apply text-2xl lg:text-3xl; }
+  h3 { @apply text-xl lg:text-2xl; }
+  h4 { @apply text-lg lg:text-xl; }
+  h5 { @apply text-base lg:text-lg; }
+  h6 { @apply text-sm lg:text-base; }
+}
+
+/* Liberation Component Styles */
+@layer components {
+  /* Cultural celebration animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(16px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes celebration {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .animate-gentle-fade {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .animate-soft-slide {
+    animation: slideIn 0.6s ease-out;
+  }
+
+  .animate-celebration {
+    animation: celebration 1s ease-in-out;
+  }
+
+  /* Liberation card pattern */
+  .liberation-card {
+    @apply bg-white rounded-lg border-2 border-gray-200;
+    @apply shadow-sm hover:shadow-md transition-shadow duration-300;
+    @apply p-6;
+  }
+
+  /* Safe space visual indicator */
+  .safe-space {
+    position: relative;
+  }
+  
+  .safe-space::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      theme('colors.liberation.healing.sage'), 
+      theme('colors.liberation.pride.purple'),
+      theme('colors.liberation.pride.pink')
+    );
+    border-radius: 4px 4px 0 0;
+  }
+
+  /* Community protection visual cues */
+  .trauma-informed {
+    transition: all 0.3s ease-out;
+  }
+
+  .trauma-informed:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Creator sovereignty highlighting */
+  .sovereignty-highlight {
+    @apply bg-liberation-sovereignty-gold bg-opacity-10;
+    @apply border-l-4 border-liberation-sovereignty-gold;
+    @apply pl-4;
+  }
+
+  /* Democratic governance visual patterns */
+  .governance-pattern {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      theme('colors.liberation.pride.purple') 8px,
+      theme('colors.liberation.pride.purple') 9px
+    );
+    opacity: 0.1;
+  }
+
+  /* Black queer joy celebration patterns */
+  .joy-celebration {
+    background: linear-gradient(135deg,
+      theme('colors.liberation.pride.pink') 0%,
+      theme('colors.liberation.pride.purple') 25%,
+      theme('colors.liberation.pride.blue') 50%,
+      theme('colors.liberation.pride.yellow') 75%,
+      theme('colors.liberation.pride.pink') 100%
+    );
+    background-size: 400% 400%;
+    animation: joyGradient 8s ease infinite;
+  }
+
+  @keyframes joyGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Pan-African cultural celebration */
+  .pan-african-border {
+    border-image: linear-gradient(90deg, 
+      theme('colors.liberation.red-liberation'),
+      theme('colors.liberation.black-power'),
+      theme('colors.liberation.green-africa')
+    ) 1;
+  }
+
+  /* Accessibility: Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Accessibility: Not screen reader only */
+  .not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/* Liberation Utility Classes */
+@layer utilities {
+  /* Cultural color utilities */
+  .text-liberation-gradient {
+    background: linear-gradient(135deg,
+      theme('colors.liberation.pride.pink'),
+      theme('colors.liberation.pride.purple')
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-liberation-gradient {
+    background: linear-gradient(135deg,
+      theme('colors.liberation.pride.pink'),
+      theme('colors.liberation.pride.purple'),
+      theme('colors.liberation.pride.blue')
+    );
+  }
+
+  .bg-pan-african-gradient {
+    background: linear-gradient(90deg,
+      theme('colors.liberation.red-liberation'),
+      theme('colors.liberation.black-power'),
+      theme('colors.liberation.green-africa')
+    );
+  }
+
+  /* Touch-friendly interaction areas */
+  .touch-friendly {
+    @apply min-h-[44px] min-w-[44px]; /* WCAG 3.0 Bronze minimum */
+  }
+
+  .touch-friendly-large {
+    @apply min-h-[56px] min-w-[56px]; /* Generous touch area */
+  }
+
+  /* Trauma-informed interaction states */
+  .gentle-hover:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s ease-out;
+  }
+
+  .gentle-focus:focus {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-out;
+  }
+
+  /* Community celebration effects */
+  .celebrate-on-hover:hover {
+    animation: celebration 0.6s ease-in-out;
+  }
+
+  /* Liberation progress indicators */
+  .progress-liberation {
+    background: linear-gradient(90deg,
+      theme('colors.liberation.healing.sage') 0%,
+      theme('colors.liberation.pride.blue') 25%,
+      theme('colors.liberation.pride.purple') 75%,
+      theme('colors.liberation.sovereignty.gold') 100%
+    );
+  }
+
+  /* Safe space visual indicators */
+  .border-safe-space {
+    border-image: linear-gradient(90deg,
+      theme('colors.liberation.healing.lavender'),
+      theme('colors.liberation.healing.sage'),
+      theme('colors.liberation.community.warm')
+    ) 1;
+  }
+
+  /* Economic justice highlighting */
+  .highlight-sovereignty {
+    box-shadow: 0 0 0 2px theme('colors.liberation.sovereignty.gold'),
+                inset 0 0 0 1px theme('colors.liberation.sovereignty.gold');
+    background-color: theme('colors.liberation.sovereignty.gold', 0.1);
+  }
+
+  /* Community governance visual cues */
+  .democratic-emphasis {
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 4px,
+      theme('colors.liberation.pride.purple') 4px,
+      theme('colors.liberation.pride.purple') 5px
+    );
+    opacity: 0.1;
+  }
+}
+
+/* Print styles for accessibility */
+@media print {
+  * {
+    color: black !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Ensure liberation values are visible in print */
+  .sovereignty-highlight,
+  .liberation-card {
+    border: 1px solid black !important;
+  }
+}
