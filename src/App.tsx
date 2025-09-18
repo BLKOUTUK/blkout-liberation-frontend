@@ -956,6 +956,47 @@ export default function App(): React.JSX.Element {
                     </button>
                   </div>
 
+                  {/* Chrome Extension */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-love-fuchsia/20 rounded-3xl p-8 hover:border-liberation-love-fuchsia/40 transition-all duration-300 group">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 bg-liberation-love-fuchsia/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-love-fuchsia/30 transition-colors">
+                        <Shield className="h-6 w-6 text-liberation-love-fuchsia" />
+                      </div>
+                      <div className="text-xs bg-liberation-love-fuchsia/20 text-liberation-love-fuchsia px-3 py-1 rounded-full font-bold">
+                        EXTENSION
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white mb-3">CHROME EXTENSION</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      One-click community event and article submissions with auto-detection
+                    </p>
+
+                    <div className="bg-liberation-love-fuchsia/10 rounded-lg p-4 mb-6">
+                      <div className="text-liberation-love-fuchsia font-bold text-sm mb-2">Features:</div>
+                      <div className="text-gray-300 text-sm space-y-1">
+                        <div>• Auto-detects events from Eventbrite, Facebook, Meetup</div>
+                        <div>• Right-click context menu submissions</div>
+                        <div>• Smart pre-filling of form fields</div>
+                        <div>• Bulk content creation for community</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <a
+                        href="/Fallback images/green images/blkout-extension-v1.0.1/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-liberation-love-fuchsia/10 hover:bg-liberation-love-fuchsia/20 border border-liberation-love-fuchsia/30 text-liberation-love-fuchsia py-3 rounded-xl font-bold transition-colors flex items-center justify-center"
+                      >
+                        Download Extension v1.0.1
+                      </a>
+                      <div className="text-xs text-gray-500 text-center">
+                        Installation: chrome://extensions → Enable Developer Mode → Load Unpacked
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Community News */}
                   <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/20 rounded-3xl p-8 hover:border-liberation-sovereignty-gold/40 transition-all duration-300 group">
                     <div className="flex items-center justify-between mb-6">
