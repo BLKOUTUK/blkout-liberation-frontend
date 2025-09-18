@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Calendar, User, ArrowRight, ArrowLeft, BookOpen, Tag } from 'lucide-react';
+import { Heart, Calendar, User, ArrowRight, ArrowLeft, BookOpen, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface StoryArchiveItem {
   id: string;
@@ -33,10 +33,13 @@ const StoryArchive: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTag, setSelectedTag] = useState<string>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     // TODO: Replace with actual API call when backend is ready
-    // For now, return empty array to show empty state
+    // For now, generate mock data to demonstrate pagination with 268 articles
     const loadStories = async () => {
       setLoading(true);
       try {
@@ -44,8 +47,22 @@ const StoryArchive: React.FC = () => {
         // const response = await fetch('/api/story-archive');
         // const data = await response.json();
 
-        // Return empty for now until real stories are added
-        setStories([]);
+        // Generate mock data for 268 articles to demonstrate pagination
+        const mockStories: StoryArchiveItem[] = Array.from({ length: 268 }, (_, index) => ({
+          id: `story-${index + 1}`,
+          title: `Liberation Story ${index + 1}: ${generateMockTitle(index)}`,
+          excerpt: generateMockExcerpt(index),
+          content: generateMockContent(index),
+          category: getRandomCategory(),
+          author: getRandomAuthor(),
+          publishedAt: generateRandomDate(),
+          readTime: `${Math.floor(Math.random() * 8) + 3} min read`,
+          tags: getRandomTags(),
+          imageUrl: undefined, // Will be set when actual articles are migrated
+          originalUrl: `https://blkoutuk.com/articles/story-${index + 1}`
+        }));
+
+        setStories(mockStories);
         setLoading(false);
       } catch (error) {
         console.error('Failed to load story archive:', error);
@@ -57,6 +74,78 @@ const StoryArchive: React.FC = () => {
     loadStories();
   }, []);
 
+  // Helper functions for mock data generation
+  const generateMockTitle = (index: number): string => {
+    const titles = [
+      'Finding Joy in Community Spaces',
+      'The Power of Black Queer Storytelling',
+      'Liberation Through Art and Expression',
+      'Building Bridges in Our Community',
+      'Reclaiming Our Narrative',
+      'Strength in Vulnerability',
+      'Creating Safe Spaces for All',
+      'The Journey to Self-Acceptance',
+      'Community Healing and Growth',
+      'Celebrating Our Authentic Selves'
+    ];
+    return titles[index % titles.length];
+  };
+
+  const generateMockExcerpt = (index: number): string => {
+    const excerpts = [
+      'A reflection on the importance of community spaces in fostering Black queer joy and liberation...',
+      'Exploring how storytelling becomes a powerful tool for community empowerment and healing...',
+      'An intimate look at how art and creative expression serve as pathways to personal liberation...',
+      'Understanding the vital role of connection and solidarity in building stronger communities...',
+      'A journey through the process of reclaiming our stories and defining our own narratives...',
+      'Examining the courage it takes to be vulnerable and how it strengthens our community bonds...',
+      'Practical insights into creating environments where everyone can feel safe and valued...',
+      'A personal narrative about the ongoing journey toward self-love and acceptance...',
+      'Exploring collective healing practices that bring communities together in meaningful ways...',
+      'Celebrating the beauty and power of living authentically in a world that often demands conformity...'
+    ];
+    return excerpts[index % excerpts.length];
+  };
+
+  const generateMockContent = (index: number): string => {
+    return `This is the full content for Liberation Story ${index + 1}. In the actual implementation, this would contain the complete article text migrated from blkoutuk.com.
+
+This article explores themes of liberation, community, and authentic self-expression within Black queer spaces. The content would include personal narratives, community insights, and practical guidance for building stronger, more inclusive communities.
+
+Key themes covered include:
+- Community empowerment and collective action
+- Personal growth and self-acceptance
+- Creating inclusive spaces for all community members
+- The intersection of identity, liberation, and joy
+- Practical tools for community building
+
+The actual migrated content would preserve the original voice and perspective of each article while presenting it within our liberation platform framework.`;
+  };
+
+  const getRandomCategory = (): string => {
+    const categories = ['liberation', 'identity', 'community', 'culture', 'politics', 'personal'];
+    return categories[Math.floor(Math.random() * categories.length)];
+  };
+
+  const getRandomAuthor = (): string => {
+    const authors = ['BLKOUT Collective', 'Community Contributor', 'Guest Writer', 'Liberation Voices'];
+    return authors[Math.floor(Math.random() * authors.length)];
+  };
+
+  const generateRandomDate = (): string => {
+    const start = new Date(2020, 0, 1);
+    const end = new Date();
+    const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return randomDate.toISOString();
+  };
+
+  const getRandomTags = (): string[] => {
+    const allTagOptions = ['black-joy', 'queer-liberation', 'community-power', 'narrative-sovereignty', 'healing', 'resistance', 'authentic-self', 'collective-action'];
+    const numTags = Math.floor(Math.random() * 4) + 1;
+    const shuffled = allTagOptions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, numTags);
+  };
+
   const categories = ['all', 'liberation', 'identity', 'community', 'culture', 'politics', 'personal'];
   const allTags = ['all', 'black-joy', 'queer-liberation', 'community-power', 'narrative-sovereignty', 'healing', 'resistance'];
 
@@ -65,6 +154,64 @@ const StoryArchive: React.FC = () => {
     const tagMatch = selectedTag === 'all' || story.tags.includes(selectedTag);
     return categoryMatch && tagMatch;
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredStories.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageStories = filteredStories
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(startIndex, endIndex);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, selectedTag]);
+
+  const handlePageChange = async (newPage: number) => {
+    if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
+
+    setPageLoading(true);
+    // Simulate loading delay for page transitions
+    await new Promise(resolve => setTimeout(resolve, 300));
+    setCurrentPage(newPage);
+    setPageLoading(false);
+
+    // Scroll to top of stories section
+    const storiesSection = document.querySelector('#stories-section');
+    if (storiesSection) {
+      storiesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const generatePageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 7;
+
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        for (let i = 1; i <= 5; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = totalPages - 4; i <= totalPages; i++) pageNumbers.push(i);
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+
+    return pageNumbers;
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -276,8 +423,22 @@ const StoryArchive: React.FC = () => {
       </section>
 
       {/* Stories Grid */}
-      <main className="py-12 px-8">
+      <main id="stories-section" className="py-12 px-8">
         <div className="max-w-6xl mx-auto">
+          {/* Pagination Info */}
+          {filteredStories.length > 0 && (
+            <div className="text-center mb-8">
+              <p className="text-gray-400">
+                Showing {startIndex + 1}-{Math.min(endIndex, filteredStories.length)} of {filteredStories.length} stories
+                {totalPages > 1 && (
+                  <span className="text-liberation-healing-sage ml-2">
+                    (Page {currentPage} of {totalPages})
+                  </span>
+                )}
+              </p>
+            </div>
+          )}
+
           {filteredStories.length === 0 ? (
             /* Empty State */
             <div className="text-center py-20">
@@ -301,11 +462,20 @@ const StoryArchive: React.FC = () => {
               </div>
             </div>
           ) : (
-            /* Stories Grid */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredStories
-                .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-                .map((story) => (
+            <>
+              {/* Loading Overlay for Page Transitions */}
+              {pageLoading && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-liberation-healing-sage/30 border-t-liberation-healing-sage rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="text-liberation-healing-sage font-bold">Loading Page {currentPage}...</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Stories Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {currentPageStories.map((story) => (
                 <article
                   key={story.id}
                   onClick={() => handleStoryClick(story.id)}
@@ -371,7 +541,88 @@ const StoryArchive: React.FC = () => {
                   </div>
                 </article>
               ))}
-            </div>
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="mt-12 flex justify-center">
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-healing-sage/20 rounded-2xl p-6">
+                    <div className="flex items-center justify-center space-x-2">
+                      {/* Previous Button */}
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1 || pageLoading}
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                          currentPage === 1 || pageLoading
+                            ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                            : 'bg-liberation-healing-sage/20 text-liberation-healing-sage hover:bg-liberation-healing-sage hover:text-black'
+                        }`}
+                      >
+                        <ChevronLeft className="h-5 w-5" />
+                      </button>
+
+                      {/* Page Numbers */}
+                      <div className="flex items-center space-x-1">
+                        {generatePageNumbers().map((pageNum, index) => (
+                          <React.Fragment key={index}>
+                            {pageNum === '...' ? (
+                              <span className="px-3 py-2 text-gray-500">...</span>
+                            ) : (
+                              <button
+                                onClick={() => handlePageChange(pageNum as number)}
+                                disabled={pageLoading}
+                                className={`px-4 py-2 rounded-xl font-bold transition-all duration-300 ${
+                                  currentPage === pageNum
+                                    ? 'bg-liberation-healing-sage text-black'
+                                    : pageLoading
+                                    ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                                    : 'bg-gray-800 text-gray-300 hover:bg-liberation-healing-sage/20 hover:text-liberation-healing-sage'
+                                }`}
+                              >
+                                {pageNum}
+                              </button>
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </div>
+
+                      {/* Next Button */}
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages || pageLoading}
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                          currentPage === totalPages || pageLoading
+                            ? 'bg-gray-800 text-gray-600 cursor-not-allowed'
+                            : 'bg-liberation-healing-sage/20 text-liberation-healing-sage hover:bg-liberation-healing-sage hover:text-black'
+                        }`}
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </div>
+
+                    {/* Pagination Info */}
+                    <div className="text-center mt-4 text-sm text-gray-500">
+                      Jump to page:
+                      <input
+                        type="number"
+                        min="1"
+                        max={totalPages}
+                        value={currentPage}
+                        onChange={(e) => {
+                          const newPage = parseInt(e.target.value);
+                          if (newPage >= 1 && newPage <= totalPages) {
+                            handlePageChange(newPage);
+                          }
+                        }}
+                        disabled={pageLoading}
+                        className="ml-2 w-16 px-2 py-1 bg-gray-800 text-gray-300 border border-gray-700 rounded text-center"
+                      />
+                      <span className="ml-2">of {totalPages}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
