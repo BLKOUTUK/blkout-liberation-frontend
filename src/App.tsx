@@ -16,6 +16,9 @@ import AboutUs from '@/components/pages/AboutUs';
 // Real backend API configuration
 const LIBERATION_API = 'https://blkout-backend-ppl502bwq-robs-projects-54d653d3.vercel.app/api';
 
+// Import live events API at the top level
+import { eventsAPI } from './services/events-api';
+
 /**
  * QI COMPLIANCE: Main BLKOUT Liberation Platform Application
  * BOUNDARY ENFORCEMENT: Presentation layer only - NO business logic
@@ -152,16 +155,13 @@ export default function App(): React.JSX.Element {
   // Content management API functions
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`${LIBERATION_API}/events`);
-      if (response.ok) {
-        const data = await response.json();
-        setEvents(data);
-      } else {
-        // Initialize with sample data if API not available
-        initializeSampleEvents();
-      }
+      // Import the new events API service dynamically
+      const { eventsAPI } = await import('./services/events-api');
+      const eventsData = await eventsAPI.getUpcomingEvents();
+      setEvents(eventsData);
+      console.log('✅ Live events loaded successfully:', eventsData.length, 'events');
     } catch (error) {
-      console.log('Events API not yet available, using sample data:', error);
+      console.log('Events service initialization failed, using fallback:', error);
       initializeSampleEvents();
     }
   };
@@ -416,9 +416,16 @@ export default function App(): React.JSX.Element {
   };
 
   const handleAskIvor = () => {
-    // External link to IVOR AI assistant
-    window.open('https://ivor-api-gateway.vercel.app', '_blank');
-    setActionFeedback('Opening IVOR AI assistant...');
+    // External link to IVOR integrated platform
+    window.open('https://frontend-sable-nine-12.vercel.app/', '_blank');
+    setActionFeedback('Opening IVOR AI assistant platform...');
+    setTimeout(() => setActionFeedback(''), 3000);
+  };
+
+  const handleExploreStory = () => {
+    // External link to BLKOUT scrollytelling experience
+    window.open('https://blkout-scrollytelling.vercel.app', '_blank');
+    setActionFeedback('Opening our liberation story...');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
@@ -572,19 +579,36 @@ export default function App(): React.JSX.Element {
               </p>
             </div>
             
-            <button
-              onClick={() => setShowWelcome(false)}
-              className={cn(
-                'w-full px-6 py-3 rounded-lg font-medium text-liberation-black-power',
-                liberationColors.pride.pink,
-                'bg-liberation-pride-pink/20 border-2 border-liberation-pride-pink',
-                traumaInformedUtils.getGentleHover(),
-                'min-h-[48px] transition-all duration-300'
-              )}
-              aria-label="Enter the liberation platform"
-            >
-              Enter Your Liberation Space
-            </button>
+            <div className="space-y-3">
+              <button
+                onClick={handleExploreStory}
+                className={cn(
+                  'w-full px-6 py-3 rounded-lg font-medium text-white',
+                  'bg-gradient-to-r from-liberation-pride-pink to-liberation-pride-blue',
+                  'hover:from-liberation-pride-blue hover:to-liberation-pride-pink',
+                  'border-2 border-liberation-pride-pink',
+                  traumaInformedUtils.getGentleHover(),
+                  'min-h-[48px] transition-all duration-300 transform hover:scale-105'
+                )}
+                aria-label="Explore our liberation story"
+              >
+                🏴‍☠️ Explore Our Liberation Story
+              </button>
+
+              <button
+                onClick={() => setShowWelcome(false)}
+                className={cn(
+                  'w-full px-6 py-3 rounded-lg font-medium text-liberation-black-power',
+                  liberationColors.pride.pink,
+                  'bg-liberation-pride-pink/20 border-2 border-liberation-pride-pink',
+                  traumaInformedUtils.getGentleHover(),
+                  'min-h-[48px] transition-all duration-300'
+                )}
+                aria-label="Enter the liberation platform"
+              >
+                Enter Your Liberation Space
+              </button>
+            </div>
           </div>
         </div>
       </div>
