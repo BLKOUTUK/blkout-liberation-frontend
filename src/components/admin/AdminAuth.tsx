@@ -25,8 +25,8 @@ export default function AdminAuth({ onAuthenticated, onCancel, requiredAction }:
 
   const MAX_ATTEMPTS = 3;
   const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8 hours
-  const ADMIN_PASSWORD_HASH = 'b8d1c1b1d1a8b7c8e4f1a7d6c9e2b4a1f8c5d9e1a6b3c7f2d8a4e5b1c9f6a3d7'; // liberation2025
-  const MODERATOR_PASSWORD_HASH = 'a7c2d8b5e1f4a9c6b2d7e3f8a1c5d9b4e7f2a8c1d6b9e4f7a2c8d5b1e9f3a6'; // blkout2025
+  const ADMIN_PASSWORD_HASH = '96a3fbd1415ea9322abac0bd97e756477b4d23b7a03e0fb2138bb6b110c0c236'; // liberation2025
+  const MODERATOR_PASSWORD_HASH = 'a5bff44950188d261cbe3e577865d25c3507ad1dcfbc5c3332ef0233b41c4c5d'; // blkout2025
 
   useEffect(() => {
     // Check for existing valid session
