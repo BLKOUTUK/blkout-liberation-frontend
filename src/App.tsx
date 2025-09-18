@@ -326,28 +326,28 @@ export default function App(): React.JSX.Element {
   const navigationTabs = [
     {
       id: 'liberation' as const,
-      label: 'Liberation Journey',
+      label: 'Free Your Mind',
       icon: Heart,
       description: 'Personal and collective liberation progress',
       color: liberationColors.pride.pink,
     },
     {
       id: 'sovereignty' as const,
-      label: 'Creator Sovereignty',
+      label: 'Make Your Contribution',
       icon: DollarSign,
-      description: '75% creator sovereignty and economic empowerment',
+      description: 'Points-based recognition and co-operative ownership',
       color: liberationColors.economic.sovereignty,
     },
     {
       id: 'governance' as const,
-      label: 'Democratic Governance',
+      label: 'Own the Change',
       icon: Vote,
       description: 'Community-controlled decision making',
       color: liberationColors.pride.purple,
     },
     {
       id: 'community' as const,
-      label: 'Community Protection',
+      label: 'Share the Love',
       icon: Shield,
       description: 'Safe spaces and trauma-informed support',
       color: liberationColors.healing.sage,
@@ -739,9 +739,9 @@ export default function App(): React.JSX.Element {
                     <div className="text-xs text-gray-500 mt-1">📊 Sample Data</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-4xl font-black text-liberation-pride-purple mb-2">75%</div>
-                    <div className="text-gray-400 font-medium">Creator Sovereignty</div>
-                    <div className="text-xs text-liberation-pride-purple mt-1">✅ Guaranteed</div>
+                    <div className="text-4xl font-black text-liberation-pride-purple mb-2">100%</div>
+                    <div className="text-gray-400 font-medium">Co-operative Owned</div>
+                    <div className="text-xs text-liberation-pride-purple mt-1">✅ Member-Controlled</div>
                   </div>
                   <div className="text-center">
                     <div className="text-4xl font-black text-liberation-healing-sage mb-2">£50K</div>
