@@ -15,8 +15,8 @@ import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
 
-// Temporary: Force mock data mode for admin testing
-const LIBERATION_API = '/api-disabled-for-testing';
+// Temporary: Force mock data mode for admin testing - trigger rebuild
+const LIBERATION_API = '/api-disabled-for-testing-v2';
 
 // Import live events API at the top level
 import { eventsAPI } from './services/events-api';
