@@ -38,31 +38,19 @@ const StoryArchive: React.FC = () => {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    // TODO: Replace with actual API call when backend is ready
-    // For now, generate mock data to demonstrate pagination with 268 articles
     const loadStories = async () => {
       setLoading(true);
       try {
-        // Mock API call - replace with actual endpoint
-        // const response = await fetch('/api/story-archive');
-        // const data = await response.json();
+        // Fetch real articles from the database via API
+        const response = await fetch('/api/story-archive');
+        const data = await response.json();
 
-        // Generate mock data for 268 articles to demonstrate pagination
-        const mockStories: StoryArchiveItem[] = Array.from({ length: 268 }, (_, index) => ({
-          id: `story-${index + 1}`,
-          title: `Liberation Story ${index + 1}: ${generateMockTitle(index)}`,
-          excerpt: generateMockExcerpt(index),
-          content: generateMockContent(index),
-          category: getRandomCategory(),
-          author: getRandomAuthor(),
-          publishedAt: generateRandomDate(),
-          readTime: `${Math.floor(Math.random() * 8) + 3} min read`,
-          tags: getRandomTags(),
-          imageUrl: undefined, // Will be set when actual articles are migrated
-          originalUrl: `https://blkoutuk.com/articles/story-${index + 1}`
-        }));
-
-        setStories(mockStories);
+        if (response.ok) {
+          setStories(data.articles || []);
+        } else {
+          console.error('API Error:', data.error);
+          setStories([]);
+        }
         setLoading(false);
       } catch (error) {
         console.error('Failed to load story archive:', error);
@@ -74,77 +62,6 @@ const StoryArchive: React.FC = () => {
     loadStories();
   }, []);
 
-  // Helper functions for mock data generation
-  const generateMockTitle = (index: number): string => {
-    const titles = [
-      'Finding Joy in Community Spaces',
-      'The Power of Black Queer Storytelling',
-      'Liberation Through Art and Expression',
-      'Building Bridges in Our Community',
-      'Reclaiming Our Narrative',
-      'Strength in Vulnerability',
-      'Creating Safe Spaces for All',
-      'The Journey to Self-Acceptance',
-      'Community Healing and Growth',
-      'Celebrating Our Authentic Selves'
-    ];
-    return titles[index % titles.length];
-  };
-
-  const generateMockExcerpt = (index: number): string => {
-    const excerpts = [
-      'A reflection on the importance of community spaces in fostering Black queer joy and liberation...',
-      'Exploring how storytelling becomes a powerful tool for community empowerment and healing...',
-      'An intimate look at how art and creative expression serve as pathways to personal liberation...',
-      'Understanding the vital role of connection and solidarity in building stronger communities...',
-      'A journey through the process of reclaiming our stories and defining our own narratives...',
-      'Examining the courage it takes to be vulnerable and how it strengthens our community bonds...',
-      'Practical insights into creating environments where everyone can feel safe and valued...',
-      'A personal narrative about the ongoing journey toward self-love and acceptance...',
-      'Exploring collective healing practices that bring communities together in meaningful ways...',
-      'Celebrating the beauty and power of living authentically in a world that often demands conformity...'
-    ];
-    return excerpts[index % excerpts.length];
-  };
-
-  const generateMockContent = (index: number): string => {
-    return `This is the full content for Liberation Story ${index + 1}. In the actual implementation, this would contain the complete article text migrated from blkoutuk.com.
-
-This article explores themes of liberation, community, and authentic self-expression within Black queer spaces. The content would include personal narratives, community insights, and practical guidance for building stronger, more inclusive communities.
-
-Key themes covered include:
-- Community empowerment and collective action
-- Personal growth and self-acceptance
-- Creating inclusive spaces for all community members
-- The intersection of identity, liberation, and joy
-- Practical tools for community building
-
-The actual migrated content would preserve the original voice and perspective of each article while presenting it within our liberation platform framework.`;
-  };
-
-  const getRandomCategory = (): string => {
-    const categories = ['liberation', 'identity', 'community', 'culture', 'politics', 'personal'];
-    return categories[Math.floor(Math.random() * categories.length)];
-  };
-
-  const getRandomAuthor = (): string => {
-    const authors = ['BLKOUT Collective', 'Community Contributor', 'Guest Writer', 'Liberation Voices'];
-    return authors[Math.floor(Math.random() * authors.length)];
-  };
-
-  const generateRandomDate = (): string => {
-    const start = new Date(2020, 0, 1);
-    const end = new Date();
-    const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-    return randomDate.toISOString();
-  };
-
-  const getRandomTags = (): string[] => {
-    const allTagOptions = ['black-joy', 'queer-liberation', 'community-power', 'narrative-sovereignty', 'healing', 'resistance', 'authentic-self', 'collective-action'];
-    const numTags = Math.floor(Math.random() * 4) + 1;
-    const shuffled = allTagOptions.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, numTags);
-  };
 
   const categories = ['all', 'liberation', 'identity', 'community', 'culture', 'politics', 'personal'];
   const allTags = ['all', 'black-joy', 'queer-liberation', 'community-power', 'narrative-sovereignty', 'healing', 'resistance'];
@@ -445,10 +362,10 @@ The actual migrated content would preserve the original voice and perspective of
               <div className="w-24 h-24 bg-liberation-healing-sage/20 rounded-3xl flex items-center justify-center mx-auto mb-6">
                 <BookOpen className="h-12 w-12 text-liberation-healing-sage" />
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">No Stories Yet</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Loading Liberation Stories</h2>
               <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                The liberation story archive is ready for community narratives and preserved blkoutuk.com articles.
-                These stories will link to full articles within this platform.
+                Connecting to our archive of migrated articles and community narratives.
+                If you're seeing this, please check your connection or try refreshing.
               </p>
               <div className="bg-liberation-healing-sage/10 border border-liberation-healing-sage/20 rounded-2xl p-8 max-w-2xl mx-auto">
                 <h3 className="text-liberation-healing-sage font-bold text-lg mb-4">Story Archive Features</h3>
