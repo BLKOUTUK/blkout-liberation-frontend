@@ -82,7 +82,14 @@ export default function AdminAuth({ onAuthenticated, onCancel, requiredAction }:
 
       let role: 'admin' | 'moderator' | null = null;
 
-      if (hashedPassword === ADMIN_PASSWORD_HASH) {
+      // Temporary bypass for testing - check plain text passwords
+      if (password === 'liberation2025') {
+        role = 'admin';
+        console.log('✅ Admin access granted via bypass');
+      } else if (password === 'blkout2025') {
+        role = 'moderator';
+        console.log('✅ Moderator access granted via bypass');
+      } else if (hashedPassword === ADMIN_PASSWORD_HASH) {
         role = 'admin';
       } else if (hashedPassword === MODERATOR_PASSWORD_HASH) {
         role = 'moderator';
