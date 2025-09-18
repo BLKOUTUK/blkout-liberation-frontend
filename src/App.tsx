@@ -15,8 +15,8 @@ import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
 
-// Real backend API configuration
-const LIBERATION_API = 'https://blkout-backend-ppl502bwq-robs-projects-54d653d3.vercel.app/api';
+// Real backend API configuration - use local API endpoints
+const LIBERATION_API = '/api';
 
 // Import live events API at the top level
 import { eventsAPI } from './services/events-api';
