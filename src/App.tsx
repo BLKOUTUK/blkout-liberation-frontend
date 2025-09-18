@@ -412,7 +412,7 @@ export default function App(): React.JSX.Element {
 
   const handleBecomeMember = () => {
     // External link to BLKOUTHUB community platform
-    window.open('https://blkouthub.com', '_blank');
+    window.open('https://blkouthub.com/invitation?code=BE862C', '_blank');
     setActionFeedback('Opening BLKOUTHUB community platform...');
     setTimeout(() => setActionFeedback(''), 3000);
   };
@@ -705,9 +705,8 @@ export default function App(): React.JSX.Element {
 
                 {/* Hero Description */}
                 <p className="text-2xl lg:text-3xl text-gray-300 font-medium mb-12 leading-relaxed max-w-4xl mx-auto">
-                  Where <span className="text-liberation-pride-pink font-bold">community ownership</span> meets
-                  <span className="text-liberation-sovereignty-gold font-bold"> creator sovereignty</span>.
-                  Building liberation through <span className="text-liberation-healing-sage font-bold">collective power</span>.
+                  <span className="text-liberation-pride-pink font-bold">Black Queer Men</span> building community.
+                  Real connections, real support, <span className="text-liberation-healing-sage font-bold">real change</span>.
                 </p>
 
                 {/* Hero Actions */}
@@ -875,7 +874,10 @@ export default function App(): React.JSX.Element {
                       </div>
                     </div>
 
-                    <button className="w-full bg-liberation-pride-pink/10 hover:bg-liberation-pride-pink/20 border border-liberation-pride-pink/30 text-liberation-pride-pink py-3 rounded-xl font-bold transition-colors">
+                    <button
+                      onClick={handleBecomeMember}
+                      className="w-full bg-liberation-pride-pink/10 hover:bg-liberation-pride-pink/20 border border-liberation-pride-pink/30 text-liberation-pride-pink py-3 rounded-xl font-bold transition-colors"
+                    >
                       Explore Hub
                     </button>
                   </div>
@@ -2055,7 +2057,14 @@ export default function App(): React.JSX.Element {
                         <Heart className="h-4 w-4 text-liberation-pride-pink" />
                       </div>
                       <div>
-                        <div className="text-white font-medium">BLKOUTHUB</div>
+                        <a
+                          href="https://blkouthub.com/invitation?code=BE862C"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white font-medium hover:text-liberation-pride-pink transition-colors"
+                        >
+                          BLKOUTHUB
+                        </a>
                         <div className="text-gray-500 text-xs">Mobile community app</div>
                       </div>
                     </div>
