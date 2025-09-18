@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "BLKOUT Liberation Moderator Tools",
+  "version": "1.0.0",
+  "description": "Content curation tool for volunteer moderators - Quick scraping and moderation queue submission",
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications"
+  ],
+
+  "host_permissions": [
+    "https://liberation.blkoutcollective.org/*",
+    "https://blkout-backend-ppl502bwq-robs-projects-54d653d3.vercel.app/*"
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "BLKOUT Liberation Platform",
+    "default_icon": {
+      "16": "icons/liberation-16.png",
+      "32": "icons/liberation-32.png",
+      "48": "icons/liberation-48.png",
+      "128": "icons/liberation-128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/liberation-16.png",
+    "32": "icons/liberation-32.png",
+    "48": "icons/liberation-48.png",
+    "128": "icons/liberation-128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"]
+    }
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["popup/*", "content/*", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

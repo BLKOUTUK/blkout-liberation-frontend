@@ -1,0 +1,436 @@
+/* BLKOUT Liberation Moderator Tools - Authentication Styles */
+
+:root {
+  --liberation-pride-pink: #FF69B4;
+  --liberation-pride-purple: #8B008B;
+  --liberation-sovereignty-gold: #FFD700;
+  --liberation-healing-sage: #87CEEB;
+  --liberation-black-power: #000000;
+  --gray-900: #111827;
+  --gray-800: #1F2937;
+  --gray-700: #374151;
+  --gray-600: #4B5563;
+  --gray-500: #6B7280;
+  --green-500: #10B981;
+  --red-500: #EF4444;
+  --orange-500: #F59E0B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 400px;
+  min-height: 500px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+  color: white;
+  overflow-x: hidden;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+/* Header */
+.auth-header {
+  background: var(--liberation-black-power);
+  border-bottom: 4px solid var(--liberation-sovereignty-gold);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liberation-icon {
+  font-size: 20px;
+}
+
+.logo h1 {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--liberation-sovereignty-gold);
+  letter-spacing: -0.5px;
+}
+
+.security-badge {
+  background: var(--liberation-pride-purple);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* Form Styles */
+.auth-form {
+  padding: 24px 20px;
+  flex: 1;
+}
+
+.auth-form h2 {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--liberation-pride-pink);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-description {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.field-group {
+  margin-bottom: 16px;
+}
+
+.field-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--liberation-healing-sage);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px;
+  background: var(--gray-800);
+  border: 2px solid var(--gray-600);
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--liberation-sovereignty-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.auth-input::placeholder {
+  color: var(--gray-500);
+}
+
+/* Password Input Group */
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--gray-500);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.password-toggle:hover {
+  color: var(--liberation-sovereignty-gold);
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.auth-checkbox {
+  display: none;
+}
+
+.checkmark {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--gray-600);
+  border-radius: 3px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.auth-checkbox:checked + .checkmark {
+  background: var(--liberation-sovereignty-gold);
+  border-color: var(--liberation-sovereignty-gold);
+}
+
+.auth-checkbox:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: var(--liberation-black-power);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* Buttons */
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-btn.primary {
+  background: linear-gradient(135deg, var(--liberation-pride-pink), var(--liberation-pride-purple));
+  color: white;
+}
+
+.auth-btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+}
+
+.auth-btn.primary:active {
+  transform: translateY(0);
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-icon {
+  font-size: 14px;
+}
+
+/* Security Info */
+.security-info {
+  margin-top: 20px;
+  padding: 12px;
+  background: rgba(255, 105, 180, 0.1);
+  border: 1px solid rgba(255, 105, 180, 0.2);
+  border-radius: 6px;
+}
+
+.security-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: var(--gray-500);
+}
+
+.security-item:last-child {
+  margin-bottom: 0;
+}
+
+.security-icon {
+  font-size: 12px;
+}
+
+/* Password Requirements */
+.password-requirements {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(139, 0, 139, 0.1);
+  border: 1px solid rgba(139, 0, 139, 0.2);
+  border-radius: 6px;
+}
+
+.password-requirements h4 {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--liberation-pride-purple);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.password-requirements ul {
+  list-style: none;
+}
+
+.password-requirements li {
+  font-size: 10px;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.password-requirements li::before {
+  content: '❌';
+  position: absolute;
+  left: 0;
+  font-size: 10px;
+}
+
+.password-requirements li.valid::before {
+  content: '✅';
+}
+
+.password-requirements li.valid {
+  color: var(--green-500);
+}
+
+/* Messages */
+.auth-message {
+  margin: 16px 20px;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.auth-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--red-500);
+}
+
+.auth-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--green-500);
+}
+
+.message-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.message-icon {
+  font-size: 14px;
+}
+
+/* Loading */
+.auth-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  flex: 1;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 105, 180, 0.3);
+  border-top: 3px solid var(--liberation-pride-pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+.loading-text {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 600;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+.auth-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--gray-700);
+  text-align: center;
+  margin-top: auto;
+}
+
+.volunteer-info {
+  font-size: 9px;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+
+.help-text {
+  font-size: 9px;
+}
+
+.help-text a {
+  color: var(--liberation-healing-sage);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.help-text a:hover {
+  color: var(--liberation-sovereignty-gold);
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+/* Focus Management */
+.auth-input:focus,
+.auth-btn:focus,
+.password-toggle:focus {
+  outline: 2px solid var(--liberation-sovereignty-gold);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 350px) {
+  body {
+    width: 350px;
+  }
+
+  .auth-form {
+    padding: 20px 16px;
+  }
+}
+
+/* Animation for form transitions */
+.auth-form {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

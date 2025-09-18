@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLKOUT Liberation Moderator - Authentication</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="auth-container">
+    <!-- Header -->
+    <header class="auth-header">
+      <div class="logo">
+        <div class="liberation-icon">⚖️</div>
+        <h1>MODERATOR ACCESS</h1>
+      </div>
+      <div class="security-badge">
+        <span>🔒 SECURE</span>
+      </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="auth-form" id="loginForm">
+      <h2>Authentication Required</h2>
+      <p class="auth-description">
+        Enter your moderator credentials to access the BLKOUT Liberation Platform content curation tools.
+      </p>
+
+      <form id="authForm">
+        <div class="field-group">
+          <label for="password">Moderator Password</label>
+          <div class="password-input-group">
+            <input
+              type="password"
+              id="password"
+              class="auth-input"
+              placeholder="Enter your moderator password"
+              required
+              autocomplete="current-password"
+            >
+            <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe" class="auth-checkbox">
+            <span class="checkmark"></span>
+            Keep me signed in (7 days)
+          </label>
+        </div>
+
+        <button type="submit" class="auth-btn primary" id="loginBtn">
+          <span class="btn-icon">🔓</span>
+          <span class="btn-text">Authenticate</span>
+        </button>
+      </form>
+
+      <!-- Security Info -->
+      <div class="security-info">
+        <div class="security-item">
+          <span class="security-icon">🛡️</span>
+          <span class="security-text">Encrypted local storage</span>
+        </div>
+        <div class="security-item">
+          <span class="security-icon">⏱️</span>
+          <span class="security-text">8-hour auto-logout</span>
+        </div>
+        <div class="security-item">
+          <span class="security-icon">🚫</span>
+          <span class="security-text">3 attempts max</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- First Time Setup -->
+    <div class="auth-form hidden" id="setupForm">
+      <h2>First Time Setup</h2>
+      <p class="auth-description">
+        Welcome! Please set a secure password for moderator access.
+      </p>
+
+      <form id="setupPasswordForm">
+        <div class="field-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            class="auth-input"
+            placeholder="Create a secure password (min 8 characters)"
+            required
+            minlength="8"
+          >
+        </div>
+
+        <div class="field-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="auth-input"
+            placeholder="Re-enter your password"
+            required
+          >
+        </div>
+
+        <div class="password-requirements">
+          <h4>Password Requirements:</h4>
+          <ul>
+            <li id="req-length">At least 8 characters</li>
+            <li id="req-match">Passwords match</li>
+          </ul>
+        </div>
+
+        <button type="submit" class="auth-btn primary" id="setupBtn">
+          <span class="btn-icon">🔐</span>
+          <span class="btn-text">Set Password</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Error/Status Messages -->
+    <div class="auth-message hidden" id="authMessage">
+      <div class="message-content">
+        <span class="message-icon">❌</span>
+        <span class="message-text">Authentication failed</span>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="auth-loading hidden" id="authLoading">
+      <div class="loading-spinner"></div>
+      <span class="loading-text">Authenticating...</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="auth-footer">
+      <div class="volunteer-info">
+        <span>Volunteer Moderator Access</span>
+        <span>•</span>
+        <span>Liberation Platform Security</span>
+      </div>
+      <div class="help-text">
+        <a href="#" id="helpLink">Need help? Contact admin</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

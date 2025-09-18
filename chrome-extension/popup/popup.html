@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLKOUT Liberation Moderator Tools</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="moderator-popup">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-content">
+        <div class="logo">
+          <div class="liberation-icon">⚖️</div>
+          <h1>MODERATOR TOOLS</h1>
+        </div>
+        <div class="moderator-badge">
+          <span>VOLUNTEER</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Auto-Extracted Content -->
+    <section class="content-extraction">
+      <h2>Auto-Extracted Content</h2>
+
+      <!-- Page Info Display -->
+      <div class="page-preview" id="pagePreview">
+        <div class="preview-image" id="previewImage">
+          <div class="image-placeholder">📷</div>
+        </div>
+        <div class="preview-content">
+          <div class="extracted-title" id="extractedTitle">Loading page information...</div>
+          <div class="extracted-url" id="extractedUrl"></div>
+          <div class="extracted-summary" id="extractedSummary">Analyzing content...</div>
+        </div>
+      </div>
+
+      <!-- Content Type Selection -->
+      <div class="content-type-selector">
+        <h3>Content Type</h3>
+        <div class="type-buttons">
+          <button class="type-btn active" data-type="event" id="eventType">
+            <span class="type-icon">📅</span>
+            Event
+          </button>
+          <button class="type-btn" data-type="news" id="newsType">
+            <span class="type-icon">📰</span>
+            News
+          </button>
+          <button class="type-btn" data-type="story" id="storyType">
+            <span class="type-icon">✍️</span>
+            Story
+          </button>
+        </div>
+      </div>
+
+      <!-- Event-specific fields (shown when event is selected) -->
+      <div class="event-fields" id="eventFields">
+        <h3>Event Details</h3>
+        <div class="field-group">
+          <label for="eventDate">Date & Time</label>
+          <input type="datetime-local" id="eventDate" class="field-input">
+        </div>
+        <div class="field-group">
+          <label for="eventLocation">Location</label>
+          <input type="text" id="eventLocation" placeholder="Extracted location" class="field-input">
+        </div>
+        <div class="field-group">
+          <label for="eventCapacity">Capacity</label>
+          <input type="number" id="eventCapacity" placeholder="Max attendees" class="field-input">
+        </div>
+      </div>
+
+      <!-- Manual Override Fields -->
+      <div class="manual-fields">
+        <h3>Review & Edit</h3>
+        <div class="field-group">
+          <label for="manualTitle">Title</label>
+          <input type="text" id="manualTitle" class="field-input" placeholder="Auto-extracted title">
+        </div>
+        <div class="field-group">
+          <label for="manualSummary">Summary</label>
+          <textarea id="manualSummary" class="field-textarea" rows="3" placeholder="Auto-extracted summary"></textarea>
+        </div>
+        <div class="field-group">
+          <label for="manualTags">Tags</label>
+          <input type="text" id="manualTags" class="field-input" placeholder="liberation, community, mutual-aid">
+        </div>
+      </div>
+
+      <!-- Moderation Actions -->
+      <div class="moderation-actions">
+        <button class="action-btn submit" id="submitToQueue">
+          <span class="btn-icon">✅</span>
+          Submit to Moderation Queue
+        </button>
+        <button class="action-btn draft" id="saveDraft">
+          <span class="btn-icon">💾</span>
+          Save as Draft
+        </button>
+        <button class="action-btn reject" id="markRejected">
+          <span class="btn-icon">❌</span>
+          Not Suitable
+        </button>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="moderator-stats">
+      <h3>Your Moderation Stats</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" id="submittedToday">0</div>
+          <div class="stat-label">Submitted Today</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="approvalRate">--</div>
+          <div class="stat-label">Approval Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="queueSize">--</div>
+          <div class="stat-label">Queue Size</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Messages -->
+    <div class="status-message" id="statusMessage" style="display: none;">
+      <div class="status-content">
+        <span class="status-icon">✅</span>
+        <span class="status-text">Content submitted to moderation queue!</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <div class="moderator-info">
+        <span>Volunteer Moderator Tool</span>
+        <span>•</span>
+        <span>Community Liberation</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

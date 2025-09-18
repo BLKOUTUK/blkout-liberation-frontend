@@ -1,0 +1,483 @@
+/* BLKOUT Liberation Platform - Moderator Tools CSS */
+
+:root {
+  --liberation-pride-pink: #FF69B4;
+  --liberation-pride-purple: #8B008B;
+  --liberation-sovereignty-gold: #FFD700;
+  --liberation-healing-sage: #87CEEB;
+  --liberation-black-power: #000000;
+  --gray-900: #111827;
+  --gray-800: #1F2937;
+  --gray-700: #374151;
+  --gray-600: #4B5563;
+  --green-500: #10B981;
+  --red-500: #EF4444;
+  --orange-500: #F59E0B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 400px;
+  min-height: 600px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--gray-900);
+  color: white;
+  overflow-x: hidden;
+}
+
+.moderator-popup {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header */
+.popup-header {
+  background: var(--liberation-black-power);
+  border-bottom: 4px solid var(--liberation-sovereignty-gold);
+  padding: 16px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liberation-icon {
+  font-size: 20px;
+}
+
+.logo h1 {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--liberation-sovereignty-gold);
+  letter-spacing: -0.5px;
+}
+
+.moderator-badge {
+  background: var(--liberation-sovereignty-gold);
+  color: var(--liberation-black-power);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* Content Extraction Section */
+.content-extraction {
+  padding: 16px;
+  flex: 1;
+}
+
+.content-extraction h2 {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--liberation-pride-purple);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Page Preview */
+.page-preview {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: var(--gray-800);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 2px solid var(--liberation-healing-sage);
+}
+
+.preview-image {
+  width: 60px;
+  height: 60px;
+  background: var(--gray-700);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.image-placeholder {
+  color: var(--liberation-healing-sage);
+}
+
+.preview-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.extracted-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.extracted-url {
+  font-size: 9px;
+  color: var(--liberation-healing-sage);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.extracted-summary {
+  font-size: 10px;
+  color: var(--gray-600);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Content Type Selector */
+.content-type-selector {
+  margin-bottom: 16px;
+}
+
+.content-type-selector h3 {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--liberation-sovereignty-gold);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.type-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  background: var(--gray-800);
+  border: 2px solid var(--gray-600);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.type-btn:hover {
+  background: var(--gray-700);
+}
+
+.type-btn.active {
+  border-color: var(--liberation-sovereignty-gold);
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--liberation-sovereignty-gold);
+}
+
+.type-icon {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+/* Event Fields */
+.event-fields {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: var(--gray-800);
+  border-radius: 8px;
+  border-left: 4px solid var(--liberation-pride-purple);
+}
+
+.event-fields h3 {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--liberation-pride-purple);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* Manual Fields */
+.manual-fields {
+  margin-bottom: 16px;
+}
+
+.manual-fields h3 {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--liberation-pride-pink);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.field-group {
+  margin-bottom: 8px;
+}
+
+.field-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--liberation-healing-sage);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.field-input, .field-textarea {
+  width: 100%;
+  padding: 8px;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-600);
+  border-radius: 4px;
+  color: white;
+  font-size: 11px;
+  transition: border-color 0.2s;
+}
+
+.field-input:focus, .field-textarea:focus {
+  outline: none;
+  border-color: var(--liberation-sovereignty-gold);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Moderation Actions */
+.moderation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.action-btn.submit {
+  background: var(--green-500);
+  color: white;
+}
+
+.action-btn.submit:hover {
+  background: #059669;
+}
+
+.action-btn.draft {
+  background: var(--orange-500);
+  color: white;
+}
+
+.action-btn.draft:hover {
+  background: #D97706;
+}
+
+.action-btn.reject {
+  background: var(--red-500);
+  color: white;
+}
+
+.action-btn.reject:hover {
+  background: #DC2626;
+}
+
+.btn-icon {
+  font-size: 14px;
+}
+
+/* Moderator Stats */
+.moderator-stats {
+  padding: 16px;
+  border-top: 1px solid var(--gray-700);
+}
+
+.moderator-stats h3 {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--liberation-pride-pink);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 8px;
+  background: var(--gray-800);
+  border-radius: 6px;
+  border: 1px solid var(--liberation-pride-purple);
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--liberation-sovereignty-gold);
+  margin-bottom: 2px;
+}
+
+.stat-label {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--liberation-pride-purple);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Status Messages */
+.status-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  animation: slideIn 0.3s ease-out;
+}
+
+.status-message.success {
+  background: var(--green-500);
+  color: white;
+}
+
+.status-message.error {
+  background: var(--red-500);
+  color: white;
+}
+
+.status-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Footer */
+.popup-footer {
+  padding: 12px 16px;
+  background: var(--liberation-black-power);
+  border-top: 2px solid var(--liberation-sovereignty-gold);
+  margin-top: auto;
+}
+
+.moderator-info {
+  font-size: 8px;
+  color: var(--liberation-healing-sage);
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Loading states */
+.loading {
+  color: var(--liberation-healing-sage);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Button states */
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+.type-btn:active {
+  transform: scale(0.95);
+}
+
+/* Hide event fields by default */
+.event-fields {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 350px) {
+  body {
+    width: 350px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Hover effects */
+.stat-item:hover {
+  border-color: var(--liberation-sovereignty-gold);
+}
+
+.stat-item:hover .stat-value {
+  color: var(--liberation-pride-pink);
+}
+
+.page-preview:hover {
+  border-color: var(--liberation-sovereignty-gold);
+}
+
+/* Focus states for accessibility */
+.field-input:focus,
+.field-textarea:focus,
+.action-btn:focus,
+.type-btn:focus {
+  box-shadow: 0 0 0 2px var(--liberation-sovereignty-gold);
+}
