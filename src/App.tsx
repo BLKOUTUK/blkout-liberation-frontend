@@ -3,7 +3,7 @@
 // STRICT SEPARATION: Application shell only - NO business logic
 
 import React, { useState, useEffect } from 'react';
-import { Heart, DollarSign, Vote, Shield, Info } from 'lucide-react';
+import { Heart, DollarSign, Vote, Shield, Info, Play, Pause } from 'lucide-react';
 import {
   cn,
   culturalUtils,
@@ -77,6 +77,35 @@ export default function App(): React.JSX.Element {
   const [showAdminAuth, setShowAdminAuth] = useState(false);
   const [pendingAdminAction, setPendingAdminAction] = useState<string>('');
   const [pendingFormType, setPendingFormType] = useState<'event' | 'news' | 'story' | null>(null);
+
+  // Hero video state
+  const [heroVideoPlaying, setHeroVideoPlaying] = useState(true);
+  const [currentHeroVideo, setCurrentHeroVideo] = useState(1);
+
+  // Available hero videos
+  const heroVideos = [
+    {
+      id: 1,
+      src: '/videos/hero/PLATFORM HERO 1.mp4',
+      title: 'Liberation Platform',
+      description: 'Main liberation hero',
+      size: '6.4MB'
+    },
+    {
+      id: 2,
+      src: '/videos/hero/PLATFORM HERO 2.mp4',
+      title: 'Community Engagement',
+      description: 'Community engagement focus',
+      size: '1.3MB'
+    },
+    {
+      id: 3,
+      src: '/videos/hero/PLATFORM HERO 3.mp4',
+      title: 'Sovereignty Focus',
+      description: 'Community sovereignty',
+      size: '3.7MB'
+    }
+  ];
 
   // Real API functions for liberation backend
   const fetchLiberationMetrics = async () => {
@@ -337,22 +366,59 @@ export default function App(): React.JSX.Element {
 
   // Action handlers for interactive buttons
   const handleStartEarning = () => {
-    setActionFeedback('Creator sovereignty program activated! 75% revenue share secured.');
+    // Navigate to creator sovereignty dashboard
+    setActiveTab('sovereignty');
+    setActionFeedback('Creator sovereignty dashboard opened!');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
   const handleJoinNetwork = () => {
-    setActionFeedback('Mutual aid network application submitted! Community will review within 24 hours.');
+    // Navigate to community section for network participation
+    setActiveTab('community');
+    setActionFeedback('Community section opened!');
+    setTimeout(() => setActionFeedback(''), 3000);
+  };
+
+  // Additional button handlers for comprehensive functionality
+  const handleExploreEvents = () => {
+    // Navigate to community events
+    setActiveTab('community');
+    setActionFeedback('Exploring community events...');
+    setTimeout(() => setActionFeedback(''), 3000);
+  };
+
+  const handleLearnMore = () => {
+    // Navigate to About section
+    setActiveTab('about');
+    setActionFeedback('Learning more about liberation platform...');
+    setTimeout(() => setActionFeedback(''), 3000);
+  };
+
+  const handleViewDashboard = () => {
+    // Navigate to sovereignty dashboard
+    setActiveTab('sovereignty');
+    setActionFeedback('Creator sovereignty dashboard opened!');
+    setTimeout(() => setActionFeedback(''), 3000);
+  };
+
+  const handleGovernanceAction = () => {
+    // Navigate to governance section
+    setActiveTab('governance');
+    setActionFeedback('Democratic governance section opened!');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
   const handleBecomeMember = () => {
-    setActionFeedback('Membership application initiated! First month free. Community ownership begins now.');
+    // External link to BLKOUTHUB community platform
+    window.open('https://blkouthub.com', '_blank');
+    setActionFeedback('Opening BLKOUTHUB community platform...');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
   const handleAskIvor = () => {
-    setActionFeedback('IVOR AI assistant activated! Ask about health, career, or community resources.');
+    // External link to IVOR AI assistant
+    window.open('https://ivor-api-gateway.vercel.app', '_blank');
+    setActionFeedback('Opening IVOR AI assistant...');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
@@ -530,388 +596,493 @@ export default function App(): React.JSX.Element {
     switch (activeTab) {
       case 'liberation':
         return (
-          <div className="space-y-6 p-6 bg-gray-900">
-            {/* HERO - Bold & Masculine */}
-            <div className="relative h-64 mb-8 rounded-2xl overflow-hidden bg-black">
-              <div className="absolute inset-0 bg-gradient-to-br from-liberation-pride-pink/20 via-liberation-pride-purple/30 to-black"></div>
-              <div className="absolute inset-0 flex items-center justify-center text-white">
-                <div className="text-center">
-                  <h1 className="text-6xl font-black font-sans tracking-tight mb-4">
-                    LIBERATION
-                  </h1>
-                  <p className="text-2xl font-bold opacity-90">DASHBOARD</p>
-                  <div className="mt-4 text-liberation-sovereignty-gold font-bold text-lg">
-                    YOUR COMMUNITY IN MOTION
-                  </div>
-                </div>
+          <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+            {/* DYNAMIC HERO SECTION WITH VIDEO BACKGROUND */}
+            <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+              {/* Hero Video Background */}
+              <div className="absolute inset-0">
+                <video
+                  key={currentHeroVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover opacity-40"
+                  onLoadStart={() => console.log('Loading hero video:', heroVideos.find(v => v.id === currentHeroVideo)?.title)}
+                >
+                  <source src={heroVideos.find(v => v.id === currentHeroVideo)?.src} type="video/mp4" />
+                  {/* Fallback for browsers that don't support video */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-liberation-pride-pink/20 via-liberation-pride-purple/10 to-liberation-sovereignty-gold/20"></div>
+                </video>
+                {/* Video overlay for better text readability */}
+                <div className="absolute inset-0 bg-black/50"></div>
+                {/* Gradient overlays for brand enhancement */}
+                <div className="absolute inset-0 bg-gradient-to-br from-liberation-pride-pink/10 via-transparent to-liberation-sovereignty-gold/10"></div>
               </div>
-              {/* Power indicators */}
-              <div className="absolute bottom-4 left-6 flex space-x-3">
-                <div className="w-3 h-3 bg-liberation-pride-pink rounded-full animate-pulse"></div>
-                <div className="w-3 h-3 bg-liberation-sovereignty-gold rounded-full animate-pulse delay-100"></div>
-                <div className="w-3 h-3 bg-liberation-pride-purple rounded-full animate-pulse delay-200"></div>
+
+              {/* BLKOUT Logo Header */}
+              <div className="absolute top-8 left-8 z-20">
+                <img
+                  src="/Branding and logos/blkout_logo_roundel_colour.png"
+                  alt="BLKOUT Liberation Platform Logo"
+                  className="h-16 w-16 object-contain filter drop-shadow-lg"
+                  onError={(e) => {
+                    console.log('Logo failed to load, using fallback');
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
-            </div>
 
-            {/* POWER TICKER */}
-            <div className="bg-gray-900 text-white p-4 rounded-xl mb-8 overflow-hidden border-l-4 border-liberation-sovereignty-gold">
-              <div className="flex items-center">
-                <div className="bg-liberation-sovereignty-gold text-gray-900 px-4 py-2 rounded font-black text-sm mr-6">
-                  LIVE
+              {/* Video Controls */}
+              <div className="absolute top-8 right-8 z-20 flex items-center space-x-4">
+                <div className="text-white/70 text-sm font-medium">
+                  🔄 Video {currentHeroVideo} of {heroVideos.length}
                 </div>
-                <div className="animate-scroll-fast flex space-x-16 whitespace-nowrap text-lg font-bold">
-                  <span>💪 COMMUNITY FUND: £50K MILESTONE</span>
-                  <span>🔥 BLACK TRANS JOY TONIGHT - 8 SPOTS</span>
-                  <span>⚡ IVOR: 200+ MEMBERS SUPPORTED</span>
-                  <span>✊ VOTE NOW: MENTAL HEALTH RESOURCES</span>
-                  <span>💪 COMMUNITY FUND: £50K MILESTONE</span>
-                </div>
+                <button
+                  onClick={() => setCurrentHeroVideo(prev => prev === 3 ? 1 : prev + 1)}
+                  className="bg-black/40 hover:bg-black/60 text-white p-2 rounded-full backdrop-blur-sm transition-all"
+                  title="Switch video"
+                >
+                  <Play className="h-4 w-4" />
+                </button>
               </div>
-            </div>
 
-            {/* BENTO GRID - Bold Modules */}
-            <div className="grid grid-cols-12 gap-6 mb-8">
-              {/* BLKOUTHUB - Pink Power Module */}
-              <div className="col-span-12 md:col-span-4 bg-gray-900 border-4 border-liberation-pride-pink rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-liberation-pride-pink/20 rounded-full -mr-10 -mt-10"></div>
+              {/* Main Hero Content */}
+              <div className="relative z-10 text-center max-w-6xl mx-auto px-8">
+                {/* Liberation Badge with Transparency Note */}
+                <div className="inline-flex items-center space-x-3 bg-liberation-pride-purple/20 border border-liberation-pride-purple/30 rounded-full px-6 py-3 mb-8">
+                  <div className="w-2 h-2 bg-liberation-pride-purple rounded-full animate-pulse"></div>
+                  <span className="text-liberation-pride-purple font-bold text-sm tracking-wider uppercase">Black Queer Liberation Platform</span>
+                </div>
 
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-3xl font-black text-liberation-pride-pink">HUB</h2>
-                    <div className="bg-liberation-pride-pink text-gray-900 text-xs px-3 py-1 rounded-full font-black">
-                      MOBILE
-                    </div>
-                  </div>
+                {/* Brand Recognition Header with Logos */}
+                <div className="flex items-center justify-center space-x-6 mb-8">
+                  <img
+                    src="/Branding and logos/blkout_logo_roundel_colour.png"
+                    alt="BLKOUT Logo"
+                    className="h-24 w-24 object-contain filter drop-shadow-2xl"
+                    onError={(e) => e.currentTarget.style.display = 'none'}
+                  />
+                  <img
+                    src="/Branding and logos/raisedfistlogo.png"
+                    alt="Raised Fist - Symbol of Empowerment"
+                    className="h-20 w-20 object-contain filter drop-shadow-xl"
+                    onError={(e) => e.currentTarget.style.display = 'none'}
+                  />
+                </div>
 
-                  <p className="text-white font-bold text-lg mb-4">
-                    WHERE UK'S BLACK QUEER MEN MEET
-                  </p>
+                {/* Main Headline */}
+                <h1 className="text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[0.85] mb-8 tracking-tight drop-shadow-2xl">
+                  BLKOUT
+                  <span className="block text-liberation-sovereignty-gold">LIBERATION</span>
+                </h1>
 
-                  <div className="space-y-3 mb-6">
-                    <div className="bg-liberation-pride-pink/20 rounded-lg p-3">
-                      <div className="text-liberation-pride-pink font-bold text-sm">THIS MONTH</div>
-                      <div className="text-white font-bold">50+ NEW MEMBERS</div>
-                    </div>
-                    <div className="bg-liberation-pride-pink/20 rounded-lg p-3">
-                      <div className="text-liberation-pride-pink font-bold text-sm">LIVE NOW</div>
-                      <div className="text-white font-bold">TECH HOTSEATS</div>
-                    </div>
-                  </div>
+                {/* Hero Description */}
+                <p className="text-2xl lg:text-3xl text-gray-300 font-medium mb-12 leading-relaxed max-w-4xl mx-auto">
+                  Where <span className="text-liberation-pride-pink font-bold">community ownership</span> meets
+                  <span className="text-liberation-sovereignty-gold font-bold"> creator sovereignty</span>.
+                  Building liberation through <span className="text-liberation-healing-sage font-bold">collective power</span>.
+                </p>
 
-                  <button className="w-full py-4 bg-liberation-pride-pink text-gray-900 rounded-xl font-black text-lg hover:bg-liberation-pride-pink/90 transition-colors">
-                    JOIN THE HUB
+                {/* Hero Actions */}
+                <div className="flex flex-col lg:flex-row items-center justify-center gap-6 mb-16">
+                  <button
+                    onClick={handleBecomeMember}
+                    className="group bg-liberation-pride-pink hover:bg-liberation-pride-pink/90 text-white px-12 py-6 rounded-2xl font-black text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-liberation-pride-pink/20"
+                  >
+                    <span className="flex items-center space-x-3">
+                      <Heart className="h-6 w-6" />
+                      <span>JOIN THE LIBERATION</span>
+                    </span>
                   </button>
-                </div>
-              </div>
-
-              {/* EVENTS - Purple Power Module */}
-              <div className="col-span-12 md:col-span-5 bg-gray-900 border-4 border-liberation-pride-purple rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-24 h-24 bg-liberation-pride-purple/20 rounded-full -ml-12 -mt-12"></div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-3xl font-black text-liberation-pride-purple">EVENTS</h2>
-                    <div className="bg-red-500 text-white text-xs px-3 py-1 rounded-full font-black animate-pulse">
-                      URGENT
-                    </div>
-                  </div>
-
-                  <p className="text-white font-bold text-lg mb-4">
-                    REAL LIBERATION IN REAL SPACES
-                  </p>
-
-                  <div className="space-y-3 mb-6">
-                    {events.slice(0, 2).map((event, index) => (
-                      <div
-                        key={event.id}
-                        className={cn(
-                          "rounded-lg p-3",
-                          event.urgency === "high" ? "bg-red-500/20 border-l-4 border-red-500" : "bg-liberation-pride-purple/20"
-                        )}
-                      >
-                        <div className={cn(
-                          "font-bold text-sm",
-                          event.urgency === "high" ? "text-red-400" : "text-liberation-pride-purple"
-                        )}>
-                          {event.date.toUpperCase()}{event.urgency === "high" ? " • FILLING UP" : ""}
-                        </div>
-                        <div className="text-white font-black text-lg">{event.title}</div>
-                        <div className={cn(
-                          "font-bold",
-                          event.urgency === "high" ? "text-red-300" : "text-purple-300"
-                        )}>
-                          {event.location} • {event.spots}
-                        </div>
-                      </div>
-                    ))}
-
-                    {events.length === 0 && (
-                      <div className="bg-liberation-pride-purple/20 rounded-lg p-4 text-center">
-                        <div className="text-liberation-pride-purple font-bold text-lg">NO UPCOMING EVENTS</div>
-                        <div className="text-white text-sm">Be the first to create a liberation event!</div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => requireAdminAuth('Create Liberation Event', 'event')}
-                      className="w-full py-3 bg-liberation-pride-purple text-white rounded-xl font-black text-lg hover:bg-liberation-pride-purple/90 transition-colors"
-                    >
-                      CREATE EVENT
-                    </button>
-                    <button className="w-full py-3 bg-liberation-pride-purple/20 border border-liberation-pride-purple text-liberation-pride-purple rounded-xl font-black text-lg hover:bg-liberation-pride-purple/30 transition-colors">
-                      VIEW ALL EVENTS
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* IVOR - Green Power Module */}
-              <div className="col-span-12 md:col-span-3 bg-gray-900 border-4 border-liberation-healing-sage rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute bottom-0 right-0 w-16 h-16 bg-liberation-healing-sage/20 rounded-full -mr-8 -mb-8"></div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-3xl font-black text-liberation-healing-sage">IVOR</h2>
-                    <div className="bg-liberation-healing-sage text-gray-900 text-xs px-3 py-1 rounded-full font-black">
-                      AI
-                    </div>
-                  </div>
-
-                  <p className="text-white font-bold text-lg mb-6">
-                    YOUR LIBERATION ASSISTANT
-                  </p>
-
-                  <div className="space-y-3 mb-6">
-                    <div className="bg-liberation-healing-sage/20 rounded-lg p-3">
-                      <div className="text-liberation-healing-sage font-bold text-sm">DID YOU KNOW?</div>
-                      <div className="text-white font-bold text-sm">Black queer men are 3x more likely to start businesses when supported by community</div>
-                    </div>
-
-                    <div className="bg-liberation-healing-sage/20 rounded-lg p-3">
-                      <div className="text-liberation-healing-sage font-bold text-sm">THIS WEEK</div>
-                      <div className="text-white font-bold">200+ MEMBERS SUPPORTED</div>
-                    </div>
-                  </div>
-
                   <button
                     onClick={handleAskIvor}
-                    className="w-full py-4 bg-liberation-healing-sage text-gray-900 rounded-xl font-black text-lg hover:bg-liberation-healing-sage/90 transition-colors"
+                    className="group bg-transparent border-2 border-liberation-healing-sage text-liberation-healing-sage hover:bg-liberation-healing-sage hover:text-gray-900 px-12 py-6 rounded-2xl font-black text-xl transition-all duration-300"
                   >
-                    ASK IVOR
+                    <span className="flex items-center space-x-3">
+                      <Shield className="h-6 w-6" />
+                      <span>ASK IVOR AI</span>
+                    </span>
                   </button>
                 </div>
-              </div>
 
-              {/* POWER QUOTES - Large Module */}
-              <div className="col-span-12 md:col-span-8 bg-black border-4 border-liberation-sovereignty-gold rounded-2xl p-8 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-32 h-32 bg-liberation-sovereignty-gold/10 rounded-full -ml-16 -mt-16"></div>
-                <div className="absolute bottom-0 right-0 w-24 h-24 bg-liberation-sovereignty-gold/10 rounded-full -mr-12 -mb-12"></div>
-
-                <div className="relative z-10 text-center">
-                  <div className="mb-6">
-                    <div className="text-liberation-sovereignty-gold font-black text-2xl mb-2">POWER WORDS</div>
-                    <div className="text-liberation-sovereignty-gold/60 font-bold">BLACK QUEER WISDOM</div>
+                {/* Community Stats with Transparency Labels */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                  <div className="text-center">
+                    <div className="text-4xl font-black text-liberation-sovereignty-gold mb-2">847</div>
+                    <div className="text-gray-400 font-medium">Community Members</div>
+                    <div className="text-xs text-gray-500 mt-1">📊 Sample Data</div>
                   </div>
-
-                  <blockquote className="text-white font-black text-4xl lg:text-5xl leading-tight mb-6 transition-all duration-1000">
-                    "{LIBERATION_QUOTES[currentQuoteIndex].quote}"
-                  </blockquote>
-
-                  <div className="text-liberation-sovereignty-gold font-bold text-xl">
-                    — {LIBERATION_QUOTES[currentQuoteIndex].author}
+                  <div className="text-center">
+                    <div className="text-4xl font-black text-liberation-pride-purple mb-2">75%</div>
+                    <div className="text-gray-400 font-medium">Creator Sovereignty</div>
+                    <div className="text-xs text-liberation-pride-purple mt-1">✅ Guaranteed</div>
                   </div>
-
-                  <div className="mt-6 flex justify-center space-x-2">
-                    {LIBERATION_QUOTES.map((_, index) => (
-                      <div
-                        key={index}
-                        className={cn(
-                          "w-3 h-3 rounded-full transition-all duration-300",
-                          index === currentQuoteIndex
-                            ? "bg-liberation-sovereignty-gold"
-                            : index < currentQuoteIndex
-                            ? "bg-liberation-sovereignty-gold/50"
-                            : "bg-liberation-sovereignty-gold/30"
-                        )}
-                      />
-                    )).slice(0, 5)} {/* Show only first 5 dots for clean design */}
-                  </div>
-
-                  <div className="mt-4 text-liberation-sovereignty-gold/60 font-bold text-sm">
-                    Quote {currentQuoteIndex + 1} of {LIBERATION_QUOTES.length} • Auto-rotating
+                  <div className="text-center">
+                    <div className="text-4xl font-black text-liberation-healing-sage mb-2">£50K</div>
+                    <div className="text-gray-400 font-medium">Community Fund</div>
+                    <div className="text-xs text-gray-500 mt-1">🎯 Target Goal</div>
                   </div>
                 </div>
               </div>
 
-              {/* NEWS TICKER - Tall Module */}
-              <div className="col-span-12 md:col-span-4 bg-gray-900 border-4 border-liberation-sovereignty-gold rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-liberation-sovereignty-gold/20 rounded-full -mr-10 -mt-10"></div>
+              {/* Scroll Indicator */}
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                  <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
+                </div>
+              </div>
+            </section>
 
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-3xl font-black text-liberation-sovereignty-gold">NEWS</h2>
-                    <div className="bg-liberation-sovereignty-gold text-gray-900 text-xs px-3 py-1 rounded-full font-black">
-                      LIVE
+            {/* CINEMATIC LIBERATION QUOTES SECTION */}
+            <section className="relative py-24 px-8">
+              <div className="max-w-6xl mx-auto text-center">
+                {/* Section Header */}
+                <div className="mb-16">
+                  <h2 className="text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+                    VOICES OF
+                    <span className="block text-liberation-sovereignty-gold">LIBERATION</span>
+                  </h2>
+                  <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Wisdom from our ancestors, elders, and community leaders guiding our path to freedom
+                  </p>
+                </div>
+
+                {/* Quote Display - Cinematic */}
+                <div className="relative">
+                  {/* Quote Content */}
+                  <div className="bg-black/40 backdrop-blur-sm border border-liberation-sovereignty-gold/20 rounded-3xl p-16 mb-8 relative overflow-hidden">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-6 left-6 text-6xl text-liberation-sovereignty-gold/20 font-black">“</div>
+                    <div className="absolute bottom-6 right-6 text-6xl text-liberation-sovereignty-gold/20 font-black">”</div>
+
+                    {/* Quote Text */}
+                    <blockquote className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-8 transition-all duration-1000 ease-in-out">
+                      {LIBERATION_QUOTES[currentQuoteIndex].quote}
+                    </blockquote>
+
+                    {/* Author */}
+                    <cite className="text-2xl lg:text-3xl font-black text-liberation-sovereignty-gold not-italic">
+                      — {LIBERATION_QUOTES[currentQuoteIndex].author}
+                    </cite>
+                  </div>
+
+                  {/* Quote Navigation */}
+                  <div className="flex items-center justify-center space-x-4 mb-8">
+                    {LIBERATION_QUOTES.slice(0, 8).map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentQuoteIndex(index)}
+                        className={cn(
+                          "w-4 h-4 rounded-full transition-all duration-300 transform hover:scale-110",
+                          index === currentQuoteIndex
+                            ? "bg-liberation-sovereignty-gold shadow-lg shadow-liberation-sovereignty-gold/50"
+                            : "bg-gray-600 hover:bg-liberation-sovereignty-gold/50"
+                        )}
+                        aria-label={`View quote ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Quote Counter */}
+                  <div className="text-liberation-sovereignty-gold/70 font-bold text-lg">
+                    Quote {currentQuoteIndex + 1} of {LIBERATION_QUOTES.length}
+                    <span className="mx-4 text-gray-600">•</span>
+                    <span className="text-gray-400">Auto-rotating every 12 seconds</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* STREAMLINED LIBERATION ECOSYSTEM */}
+            <section className="py-20 px-8">
+              <div className="max-w-7xl mx-auto">
+                {/* Section Header with Empowerment Logo */}
+                <div className="text-center mb-16">
+                  <div className="flex items-center justify-center mb-6">
+                    <img
+                      src="/Branding and logos/raisedfistlogo.png"
+                      alt="Empowerment Symbol"
+                      className="h-12 w-12 object-contain mr-4"
+                      onError={(e) => e.currentTarget.style.display = 'none'}
+                    />
+                    <h2 className="text-4xl lg:text-5xl font-black text-white">
+                      LIBERATION
+                      <span className="text-liberation-pride-purple"> ECOSYSTEM</span>
+                    </h2>
+                  </div>
+                  <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Integrated community platforms building collective power through technology
+                  </p>
+                  <div className="mt-4 inline-flex items-center space-x-2 bg-liberation-healing-sage/10 border border-liberation-healing-sage/20 rounded-full px-4 py-2">
+                    <div className="w-2 h-2 bg-liberation-healing-sage rounded-full animate-pulse"></div>
+                    <span className="text-liberation-healing-sage text-sm font-bold">🔄 Live Data Coming Soon</span>
+                  </div>
+                </div>
+
+                {/* Platform Services Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
+                  {/* Community Hub */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-pride-pink/20 rounded-3xl p-8 hover:border-liberation-pride-pink/40 transition-all duration-300 group">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 bg-liberation-pride-pink/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-pride-pink/30 transition-colors">
+                        <Heart className="h-6 w-6 text-liberation-pride-pink" />
+                      </div>
+                      <div className="text-xs bg-liberation-pride-pink/10 text-liberation-pride-pink px-3 py-1 rounded-full font-bold">
+                        MOBILE APP
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white mb-3">BLKOUTHUB</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Where UK's Black queer men connect, support, and build community
+                    </p>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Active Members</span>
+                        <span className="text-liberation-pride-pink font-bold">250+ <span className="text-xs opacity-70">📊 Demo</span></span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">This Month</span>
+                        <span className="text-liberation-pride-pink font-bold">50 New <span className="text-xs opacity-70">📊 Demo</span></span>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-liberation-pride-pink/10 hover:bg-liberation-pride-pink/20 border border-liberation-pride-pink/30 text-liberation-pride-pink py-3 rounded-xl font-bold transition-colors">
+                      Explore Hub
+                    </button>
+                  </div>
+
+                  {/* Events Platform */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-pride-purple/20 rounded-3xl p-8 hover:border-liberation-pride-purple/40 transition-all duration-300 group">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 bg-liberation-pride-purple/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-pride-purple/30 transition-colors">
+                        <DollarSign className="h-6 w-6 text-liberation-pride-purple" />
+                      </div>
+                      <div className="text-xs bg-red-500/20 text-red-400 px-3 py-1 rounded-full font-bold animate-pulse">
+                        URGENT
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white mb-3">EVENTS</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Real liberation in real spaces - community gatherings and activism
+                    </p>
+
+                    <div className="space-y-3 mb-6">
+                      {events.slice(0, 1).map((event) => (
+                        <div key={event.id} className="bg-liberation-pride-purple/10 rounded-lg p-4">
+                          <div className="text-liberation-pride-purple font-bold text-sm mb-1">{event.date}</div>
+                          <div className="text-white font-bold">{event.title}</div>
+                          <div className="text-gray-400 text-sm">{event.location} • {event.spots}</div>
+                        </div>
+                      ))}
+
+                      {events.length === 0 && (
+                        <div className="bg-liberation-pride-purple/10 rounded-lg p-4 text-center">
+                          <div className="text-liberation-pride-purple font-bold">No Events Yet</div>
+                          <div className="text-gray-400 text-sm">Create the first liberation event</div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => requireAdminAuth('Create Liberation Event', 'event')}
+                        className="w-full bg-liberation-pride-purple/10 hover:bg-liberation-pride-purple/20 border border-liberation-pride-purple/30 text-liberation-pride-purple py-3 rounded-xl font-bold transition-colors"
+                      >
+                        Create Event <span className="text-xs opacity-70">(Admin)</span>
+                      </button>
                     </div>
                   </div>
 
-                  <p className="text-white font-bold text-lg mb-6">
-                    CONTROL THE NARRATIVE
-                  </p>
-
-                  <div className="space-y-4 mb-6">
-                    {news.slice(0, 2).map((article) => (
-                      <div key={article.id} className="bg-liberation-sovereignty-gold/20 rounded-lg p-4">
-                        <div className="text-liberation-sovereignty-gold font-bold text-sm mb-2">{article.category.toUpperCase()}</div>
-                        <div className="text-white font-bold text-lg">{article.title}</div>
-                        <div className="text-liberation-sovereignty-gold/80 text-sm">{article.content.substring(0, 35)}...</div>
+                  {/* IVOR AI Assistant */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-healing-sage/20 rounded-3xl p-8 hover:border-liberation-healing-sage/40 transition-all duration-300 group">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 bg-liberation-healing-sage/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-healing-sage/30 transition-colors">
+                        <Shield className="h-6 w-6 text-liberation-healing-sage" />
                       </div>
-                    ))}
-
-                    {news.length === 0 && (
-                      <div className="bg-liberation-sovereignty-gold/20 rounded-lg p-4 text-center">
-                        <div className="text-liberation-sovereignty-gold font-bold text-lg">NO NEWS YET</div>
-                        <div className="text-white text-sm">Control the narrative!</div>
+                      <div className="text-xs bg-liberation-healing-sage/20 text-liberation-healing-sage px-3 py-1 rounded-full font-bold">
+                        AI ASSISTANT
                       </div>
-                    )}
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white mb-3">IVOR</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Liberation-focused AI providing community support and guidance
+                    </p>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Members Helped</span>
+                        <span className="text-liberation-healing-sage font-bold">200+ <span className="text-xs opacity-70">📊 Demo</span></span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Status</span>
+                        <span className="text-liberation-healing-sage font-bold">24/7 Ready</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleAskIvor}
+                      className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-3 rounded-xl font-bold transition-colors"
+                    >
+                      Ask IVOR
+                    </button>
                   </div>
 
-                  <div className="space-y-2">
+                  {/* Community News */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/20 rounded-3xl p-8 hover:border-liberation-sovereignty-gold/40 transition-all duration-300 group">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 bg-liberation-sovereignty-gold/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-sovereignty-gold/30 transition-colors">
+                        <Vote className="h-6 w-6 text-liberation-sovereignty-gold" />
+                      </div>
+                      <div className="text-xs bg-liberation-sovereignty-gold/20 text-liberation-sovereignty-gold px-3 py-1 rounded-full font-bold">
+                        NEWSROOM
+                      </div>
+                    </div>
+
+                    <h3 className="text-2xl font-black text-white mb-3">NEWS</h3>
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Community-controlled journalism and narrative sovereignty
+                    </p>
+
+                    <div className="space-y-3 mb-6">
+                      {news.slice(0, 1).map((article) => (
+                        <div key={article.id} className="bg-liberation-sovereignty-gold/10 rounded-lg p-4">
+                          <div className="text-liberation-sovereignty-gold font-bold text-sm mb-1">{article.category}</div>
+                          <div className="text-white font-bold text-sm">{article.title}</div>
+                          <div className="text-gray-400 text-xs">{article.content.substring(0, 50)}...</div>
+                        </div>
+                      ))}
+
+                      {news.length === 0 && (
+                        <div className="bg-liberation-sovereignty-gold/10 rounded-lg p-4 text-center">
+                          <div className="text-liberation-sovereignty-gold font-bold">No Articles</div>
+                          <div className="text-gray-400 text-sm">Control the narrative</div>
+                        </div>
+                      )}
+                    </div>
+
                     <button
                       onClick={() => requireAdminAuth('Create News Article', 'news')}
-                      className="w-full py-3 bg-liberation-sovereignty-gold text-gray-900 rounded-xl font-black text-lg hover:bg-liberation-sovereignty-gold/90 transition-colors"
+                      className="w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold transition-colors"
                     >
-                      WRITE NEWS
-                    </button>
-                    <button className="w-full py-3 bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold text-liberation-sovereignty-gold rounded-xl font-black text-lg hover:bg-liberation-sovereignty-gold/30 transition-colors">
-                      READ MORE
+                      Write Article <span className="text-xs opacity-70">(Admin)</span>
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            {/* Knowledge Cluster - News & Stories */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              {/* Community Newsroom */}
-              <div className="bg-gradient-to-br from-liberation-pride-purple/10 to-liberation-sovereignty-gold/10 border-2 border-liberation-pride-purple/20 rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-3">
-                  <div className="w-3 h-3 bg-liberation-pride-purple rounded-full animate-pulse"></div>
-                  <h3 className="font-semibold text-liberation-black-power">Community Newsroom</h3>
+
+
+            {/* COMMUNITY STORIES SECTION */}
+            <section className="py-24 px-8">
+              <div className="max-w-6xl mx-auto">
+                {/* Section Header */}
+                <div className="text-center mb-16">
+                  <h2 className="text-5xl font-black text-white mb-4">
+                    LIBERATION
+                    <span className="text-liberation-healing-sage"> STORIES</span>
+                  </h2>
+                  <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Our collective memory and wisdom. Personal journeys of liberation and community power.
+                  </p>
                 </div>
-                <p className="text-sm opacity-80 mb-3">
-                  Control the narrative. Share community news, analysis, and liberation perspectives.
-                </p>
-                <div className="space-y-2">
-                  {news.slice(0, 2).map((article) => (
-                    <div key={article.id} className="bg-white/60 rounded p-2 text-xs">
-                      <div className="font-medium text-liberation-pride-purple">{article.category}</div>
-                      <div>{article.title}</div>
-                      <div className="opacity-70">Published by {article.author}</div>
+
+                {/* Stories Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  {/* Featured Stories */}
+                  <div className="space-y-8">
+                    <h3 className="text-2xl font-bold text-liberation-healing-sage mb-6 flex items-center">
+                      <div className="w-2 h-2 bg-liberation-healing-sage rounded-full mr-3 animate-pulse"></div>
+                      Featured Liberation Journeys
+                    </h3>
+
+                    <div className="space-y-6">
+                      {stories.slice(0, 2).map((story) => (
+                        <article key={story.id} className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-healing-sage/10 rounded-2xl p-8 hover:border-liberation-healing-sage/30 transition-all duration-300">
+                          <div className="mb-4">
+                            <div className="text-liberation-healing-sage font-bold text-sm mb-2">{story.category.toUpperCase()}</div>
+                            <h4 className="text-xl font-bold text-white mb-3">"{story.title}"</h4>
+                            <p className="text-gray-400 leading-relaxed">{story.content}</p>
+                          </div>
+                          <div className="flex items-center text-sm text-gray-500">
+                            <div className="w-1 h-1 bg-liberation-healing-sage rounded-full mr-2"></div>
+                            <span>By {story.author}</span>
+                          </div>
+                        </article>
+                      ))}
+
+                      {stories.length === 0 && (
+                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-healing-sage/10 rounded-2xl p-8 text-center">
+                          <div className="text-liberation-healing-sage font-bold text-lg mb-2">No Stories Yet</div>
+                          <div className="text-gray-400">Be the first to share your liberation journey</div>
+                        </div>
+                      )}
                     </div>
-                  ))}
 
-                  {news.length === 0 && (
-                    <div className="bg-white/60 rounded p-3 text-xs text-center">
-                      <div className="font-medium text-liberation-pride-purple">NO ARTICLES YET</div>
-                      <div>Be the first to control the narrative!</div>
-                    </div>
-                  )}
-                </div>
-                <div className="space-y-2 mt-3">
-                  <button
-                    onClick={() => requireAdminAuth('Write News Article', 'news')}
-                    className="w-full py-2 bg-liberation-pride-purple text-white rounded text-sm font-medium hover:bg-liberation-pride-purple/90 transition-colors"
-                  >
-                    Write Article
-                  </button>
-                  <button className="w-full py-2 bg-liberation-pride-purple/20 border border-liberation-pride-purple rounded text-sm font-medium text-liberation-pride-purple hover:bg-liberation-pride-purple/30 transition-colors">
-                    Read & Contribute
-                  </button>
-                </div>
-              </div>
-
-              {/* Story Archive */}
-              <div className="bg-gradient-to-br from-liberation-healing-sage/10 to-liberation-pride-pink/10 border-2 border-liberation-healing-sage/20 rounded-lg p-4">
-                <div className="flex items-center space-x-2 mb-3">
-                  <div className="w-3 h-3 bg-liberation-healing-sage rounded-full animate-pulse"></div>
-                  <h3 className="font-semibold text-liberation-black-power">Liberation Stories</h3>
-                </div>
-                <p className="text-sm opacity-80 mb-3">
-                  Our collective memory. Personal liberation journeys and community wisdom.
-                </p>
-                <div className="space-y-2">
-                  {stories.slice(0, 2).map((story) => (
-                    <div key={story.id} className="bg-white/60 rounded p-2 text-xs">
-                      <div className="font-medium text-liberation-healing-sage">{story.category}</div>
-                      <div>"{story.title}"</div>
-                      <div className="opacity-70">{story.content.substring(0, 40)}...</div>
-                    </div>
-                  ))}
-
-                  {stories.length === 0 && (
-                    <div className="bg-white/60 rounded p-3 text-xs text-center">
-                      <div className="font-medium text-liberation-healing-sage">NO STORIES YET</div>
-                      <div>Share your liberation journey!</div>
-                    </div>
-                  )}
-                </div>
-                <div className="space-y-2 mt-3">
-                  <button
-                    onClick={() => requireAdminAuth('Share Liberation Story', 'story')}
-                    className="w-full py-2 bg-liberation-healing-sage text-gray-900 rounded text-sm font-medium hover:bg-liberation-healing-sage/90 transition-colors"
-                  >
-                    Share Your Story
-                  </button>
-                  <button className="w-full py-2 bg-liberation-healing-sage/20 border border-liberation-healing-sage rounded text-sm font-medium text-liberation-healing-sage hover:bg-liberation-healing-sage/30 transition-colors">
-                    Read Stories
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Complete Liberation Ecosystem */}
-            <div className="bg-gradient-to-r from-liberation-pride-pink to-liberation-pride-purple p-6 rounded-lg text-white">
-              <h3 className="text-lg font-semibold mb-3">Complete Liberation Ecosystem</h3>
-
-              {/* Core Platform Services */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm mb-4">
-                <div className="bg-white/20 rounded p-3">
-                  <div className="font-medium mb-1">📅 Events</div>
-                  <div className="opacity-90 text-xs">Real-world community connections</div>
-                </div>
-                <div className="bg-white/20 rounded p-3">
-                  <div className="font-medium mb-1">📰 News</div>
-                  <div className="opacity-90 text-xs">Control the narrative</div>
-                </div>
-                <div className="bg-white/20 rounded p-3">
-                  <div className="font-medium mb-1">✍️ Stories</div>
-                  <div className="opacity-90 text-xs">Share liberation journeys</div>
-                </div>
-                <div className="bg-white/20 rounded p-3">
-                  <div className="font-medium mb-1">🤖 IVOR</div>
-                  <div className="opacity-90 text-xs">AI liberation assistant</div>
-                </div>
-              </div>
-
-              {/* Partner Community */}
-              <div className="bg-white/10 rounded-lg p-3 border border-white/20">
-                <div className="text-sm font-medium mb-1">🤝 Partner Community</div>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium">💖 BLKOUTHUB</div>
-                    <div className="opacity-90 text-xs">External mobile app • Where UK's Black Queer Men Meet</div>
+                    <button
+                      onClick={() => requireAdminAuth('Share Liberation Story', 'story')}
+                      className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105"
+                    >
+                      Share Your Liberation Story <span className="text-xs opacity-70">(Admin)</span>
+                    </button>
                   </div>
-                  <div className="text-xs bg-white/20 px-2 py-1 rounded">📱 Mobile App</div>
+
+                  {/* Community Impact */}
+                  <div className="space-y-8">
+                    <h3 className="text-2xl font-bold text-liberation-pride-purple mb-6 flex items-center">
+                      <div className="w-2 h-2 bg-liberation-pride-purple rounded-full mr-3 animate-pulse"></div>
+                      Community Impact
+                    </h3>
+
+                    <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-pride-purple/10 rounded-2xl p-8">
+                      <div className="grid grid-cols-2 gap-8 mb-8">
+                        <div className="text-center">
+                          <div className="text-4xl font-black text-liberation-pride-purple mb-2">{stories.length}</div>
+                          <div className="text-gray-400">Stories Shared</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-4xl font-black text-liberation-sovereignty-gold mb-2">847</div>
+                          <div className="text-gray-400">Lives Touched</div>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-700 pt-6">
+                        <h4 className="text-lg font-bold text-white mb-4">Recent Community News</h4>
+                        <div className="space-y-4">
+                          {news.slice(0, 2).map((article) => (
+                            <div key={article.id} className="bg-liberation-sovereignty-gold/5 border border-liberation-sovereignty-gold/10 rounded-xl p-4">
+                              <div className="text-liberation-sovereignty-gold font-bold text-sm mb-1">{article.category}</div>
+                              <div className="text-white font-bold text-sm mb-1">{article.title}</div>
+                              <div className="text-gray-400 text-xs">{article.content.substring(0, 80)}...</div>
+                            </div>
+                          ))}
+
+                          {news.length === 0 && (
+                            <div className="bg-liberation-sovereignty-gold/5 border border-liberation-sovereignty-gold/10 rounded-xl p-4 text-center">
+                              <div className="text-liberation-sovereignty-gold font-bold text-sm">No News Yet</div>
+                              <div className="text-gray-400 text-xs">Control the narrative - write the first article</div>
+                            </div>
+                          )}
+                        </div>
+
+                        <button
+                          onClick={() => requireAdminAuth('Write News Article', 'news')}
+                          className="w-full mt-6 bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold transition-colors"
+                        >
+                          Write Community Article
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </section>
 
-              <div className="mt-4 text-xs opacity-90 text-center">
-                Four core platform services plus partnership with BLKOUTHUB mobile community
-              </div>
-            </div>
           </div>
         );
         
@@ -1429,81 +1600,105 @@ export default function App(): React.JSX.Element {
 
       {/* Main Application Layout */}
       <div className="flex flex-col min-h-screen">
-        {/* Header */}
-        <header className="bg-black border-b-4 border-liberation-pride-purple shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              {/* Logo and Title */}
+        {/* ENHANCED HEADER - Clean & Professional */}
+        <header className="bg-black/95 backdrop-blur-sm border-b border-liberation-pride-purple/20 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex items-center justify-between h-24">
+              {/* Logo and Brand */}
               <div className="flex items-center space-x-4">
                 <div className={cn(
-                  'w-12 h-12 rounded-full flex items-center justify-center',
-                  culturalUtils.getPanAfricanGradient()
+                  'w-14 h-14 rounded-2xl flex items-center justify-center',
+                  'bg-gradient-to-br from-liberation-pride-pink via-liberation-pride-purple to-liberation-sovereignty-gold',
+                  'shadow-lg shadow-liberation-pride-purple/20'
                 )}>
-                  <Heart className="h-6 w-6 text-white" aria-hidden="true" />
+                  <Heart className="h-7 w-7 text-white" aria-hidden="true" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-black font-sans text-white tracking-tight">
-                    BLKOUT LIBERATION
+                  <h1 className="text-3xl font-black text-white tracking-tight">
+                    BLKOUT
+                    <span className="text-liberation-sovereignty-gold">.</span>
                   </h1>
-                  <div className="text-liberation-pride-purple font-bold text-sm">
-                    COMMUNITY EMPOWERMENT PLATFORM
+                  <div className="text-liberation-pride-purple font-bold text-sm tracking-wide">
+                    LIBERATION PLATFORM
                   </div>
                 </div>
               </div>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex space-x-2" aria-label="Main navigation">
+              {/* Enhanced Navigation */}
+              <nav className="hidden md:flex space-x-1" aria-label="Main navigation">
                 {navigationTabs.map((tab) => {
                   const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
                   return (
                     <button
                       key={tab.id}
                       onClick={() => handleTabChange(tab.id)}
                       className={cn(
-                        'flex items-center space-x-3 px-6 py-4 rounded-xl font-black text-lg',
-                        'transition-all duration-200 min-h-[56px] border-2',
-                        activeTab === tab.id
-                          ? cn('bg-gray-900 text-white border-4', `border-${tab.color.split('-')[2]}-${tab.color.split('-')[3]}`)
-                          : 'text-gray-300 hover:text-white hover:bg-gray-900 border-transparent'
+                        'group relative flex items-center space-x-3 px-6 py-4 rounded-2xl font-bold text-base',
+                        'transition-all duration-300 min-h-[56px]',
+                        isActive
+                          ? 'bg-liberation-pride-purple/20 text-white border border-liberation-pride-purple/40'
+                          : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
                       )}
-                      aria-current={activeTab === tab.id ? 'page' : undefined}
+                      aria-current={isActive ? 'page' : undefined}
                     >
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                      <span className="hidden lg:inline font-sans">{tab.label.toUpperCase()}</span>
+                      <Icon className={cn(
+                        'h-5 w-5 transition-colors duration-300',
+                        isActive ? 'text-liberation-pride-purple' : 'text-gray-500 group-hover:text-liberation-pride-purple'
+                      )} aria-hidden="true" />
+                      <span className="hidden lg:inline tracking-wide font-sans">
+                        {tab.label}
+                      </span>
+
+                      {/* Active indicator */}
+                      {isActive && (
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-2 h-2 bg-liberation-pride-purple rounded-full"></div>
+                      )}
                     </button>
                   );
                 })}
               </nav>
+
+              {/* Mobile Menu Button (for future implementation) */}
+              <button className="md:hidden w-10 h-10 flex items-center justify-center text-white">
+                <div className="space-y-1">
+                  <div className="w-5 h-0.5 bg-white"></div>
+                  <div className="w-5 h-0.5 bg-liberation-pride-purple"></div>
+                  <div className="w-5 h-0.5 bg-white"></div>
+                </div>
+              </button>
             </div>
           </div>
         </header>
         
         {/* Main Content */}
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Action Feedback */}
+        <main className="flex-1">
+          {/* Action Feedback - Floating Notification */}
           {actionFeedback && (
-            <div className="mb-6 p-4 rounded-xl border-2 border-liberation-pride-pink bg-liberation-pride-pink/10 flex items-center space-x-3">
-              <div className="w-3 h-3 bg-liberation-pride-pink rounded-full animate-pulse"></div>
-              <span className="text-liberation-pride-pink font-bold text-lg">{actionFeedback}</span>
+            <div className="fixed top-32 right-8 z-50 max-w-md">
+              <div className="bg-liberation-pride-pink/90 backdrop-blur-sm border border-liberation-pride-pink/30 rounded-2xl p-4 shadow-2xl shadow-liberation-pride-pink/20 animate-gentle-fade">
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                  <span className="text-white font-bold text-sm">{actionFeedback}</span>
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Content Warning and Safe Space */}
-          <div className={cn(
-            'mb-6 p-3 rounded border flex items-center space-x-4',
-            liberationColors.healing.sage,
-            'border-liberation-healing-sage/30 bg-liberation-healing-sage/10',
-            'text-sm'
-          )}>
-            <div className="flex items-center space-x-2">
-              <Shield className="h-4 w-4 text-liberation-healing-sage" aria-hidden="true" />
-              <span className="font-medium">Safe Space Active</span>
-            </div>
-            <div className="text-xs opacity-70 flex-1">
-              Community guidelines and trauma-informed support active
+          {/* Safe Space Banner - Elegant */}
+          <div className="bg-liberation-healing-sage/5 border-b border-liberation-healing-sage/10">
+            <div className="max-w-7xl mx-auto px-8 py-3">
+              <div className="flex items-center justify-center space-x-4 text-sm">
+                <div className="flex items-center space-x-2">
+                  <Shield className="h-4 w-4 text-liberation-healing-sage" aria-hidden="true" />
+                  <span className="font-bold text-liberation-healing-sage">Trauma-Informed Safe Space</span>
+                </div>
+                <div className="w-1 h-1 bg-liberation-healing-sage/50 rounded-full"></div>
+                <span className="text-gray-600">Community guidelines and comprehensive support active</span>
+              </div>
             </div>
           </div>
-          
+
           {renderMainContent()}
         </main>
         
@@ -1705,34 +1900,194 @@ export default function App(): React.JSX.Element {
           </div>
         )}
 
-        {/* Footer */}
-        <footer className="bg-black border-t-4 border-liberation-pride-purple">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="text-center space-y-6">
-              <div className="flex items-center justify-center space-x-12 text-lg">
-                <div className="flex items-center space-x-3">
-                  <DollarSign className="h-6 w-6 text-liberation-sovereignty-gold" aria-hidden="true" />
-                  <span className="text-liberation-sovereignty-gold font-black font-sans">75% CREATOR SOVEREIGNTY</span>
+        {/* ELEGANT ECOSYSTEM FOOTER WITH BRANDING */}
+        <footer className="bg-gradient-to-br from-black via-gray-900 to-black border-t border-liberation-pride-purple/30">
+          <div className="max-w-7xl mx-auto px-8 py-16">
+            {/* Main Footer Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+              {/* Brand & Mission with Consistent Logos */}
+              <div className="lg:col-span-2">
+                <div className="flex items-center space-x-4 mb-6">
+                  <img
+                    src="/Branding and logos/blkout_logo_roundel_colour.png"
+                    alt="BLKOUT Liberation Platform"
+                    className="h-16 w-16 object-contain"
+                    onError={(e) => {
+                      // Fallback to gradient icon if logo fails
+                      const parent = e.currentTarget.parentElement;
+                      if (parent) {
+                        parent.innerHTML = `<div class="w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-br from-liberation-pride-pink via-liberation-pride-purple to-liberation-sovereignty-gold"><svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg></div>`;
+                      }
+                    }}
+                  />
+                  <div>
+                    <h2 className="text-3xl font-black text-white mb-1">BLKOUT LIBERATION</h2>
+                    <div className="text-liberation-pride-purple font-bold text-sm">Community Empowerment Platform</div>
+                    <div className="flex items-center space-x-2 mt-2">
+                      <div className="w-2 h-2 bg-liberation-sovereignty-gold rounded-full animate-pulse"></div>
+                      <span className="text-liberation-sovereignty-gold text-xs font-medium">Building Community Sovereignty</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Vote className="h-6 w-6 text-liberation-pride-purple" aria-hidden="true" />
-                  <span className="text-liberation-pride-purple font-black font-sans">DEMOCRATIC GOVERNANCE</span>
+                <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                  Building collective power through community ownership, creator sovereignty, and Black queer joy.
+                  Where liberation meets technology, and community controls the future.
+                </p>
+
+                {/* Platform Navigation */}
+                <div className="mb-8">
+                  <h3 className="text-liberation-pride-pink font-bold text-sm mb-4 uppercase tracking-wide">Liberation Ecosystem</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div className="group">
+                      <div className="text-white font-medium hover:text-liberation-pride-pink transition-colors cursor-pointer group-hover:underline">Events</div>
+                      <div className="text-gray-500 text-xs">Real liberation spaces</div>
+                    </div>
+                    <div className="group">
+                      <div className="text-white font-medium hover:text-liberation-sovereignty-gold transition-colors cursor-pointer group-hover:underline">News</div>
+                      <div className="text-gray-500 text-xs">Community journalism</div>
+                    </div>
+                    <div className="group">
+                      <div className="text-white font-medium hover:text-liberation-healing-sage transition-colors cursor-pointer group-hover:underline">IVOR AI</div>
+                      <div className="text-gray-500 text-xs">Liberation assistant</div>
+                    </div>
+                    <div className="group">
+                      <div className="text-white font-medium hover:text-liberation-pride-purple transition-colors cursor-pointer group-hover:underline">Community</div>
+                      <div className="text-gray-500 text-xs">Safe spaces</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Heart className="h-6 w-6 text-liberation-pride-pink" aria-hidden="true" />
-                  <span className="text-liberation-pride-pink font-black font-sans">BLACK QUEER JOY</span>
+
+                {/* Partner Platforms */}
+                <div className="mb-8">
+                  <h3 className="text-liberation-sovereignty-gold font-bold text-sm mb-4 uppercase tracking-wide">Partner Platforms</h3>
+                  <div className="flex items-center space-x-6">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-liberation-pride-pink/20 rounded-lg flex items-center justify-center">
+                        <Heart className="h-4 w-4 text-liberation-pride-pink" />
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">BLKOUTHUB</div>
+                        <div className="text-gray-500 text-xs">Mobile community app</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Core Values */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="flex items-center space-x-3">
+                    <DollarSign className="h-5 w-5 text-liberation-sovereignty-gold" aria-hidden="true" />
+                    <div>
+                      <div className="text-liberation-sovereignty-gold font-bold text-sm">Creator Sovereignty</div>
+                      <div className="text-gray-500 text-xs">75% guaranteed</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Vote className="h-5 w-5 text-liberation-pride-purple" aria-hidden="true" />
+                    <div>
+                      <div className="text-liberation-pride-purple font-bold text-sm">Democratic Control</div>
+                      <div className="text-gray-500 text-xs">Community governed</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Heart className="h-5 w-5 text-liberation-pride-pink" aria-hidden="true" />
+                    <div>
+                      <div className="text-liberation-pride-pink font-bold text-sm">Black Queer Joy</div>
+                      <div className="text-gray-500 text-xs">Always centered</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-white font-bold text-lg">
-                Revolutionary platform prioritizing community liberation, creator sovereignty, and cultural authenticity
-              </p>
+              {/* Community Stats with Transparency */}
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-pride-purple/20 rounded-2xl p-8">
+                <div className="flex items-center space-x-3 mb-6">
+                  <img
+                    src="/Branding and logos/raisedfistlogo.png"
+                    alt="Empowerment Symbol"
+                    className="h-8 w-8 object-contain"
+                    onError={(e) => e.currentTarget.style.display = 'none'}
+                  />
+                  <h3 className="text-xl font-bold text-white">Liberation Impact</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Community Members</span>
+                    <div className="text-right">
+                      <span className="text-liberation-sovereignty-gold font-bold">847</span>
+                      <div className="text-xs text-gray-500">📊 Sample Data</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Stories Shared</span>
+                    <div className="text-right">
+                      <span className="text-liberation-healing-sage font-bold">{stories.length}</span>
+                      <div className="text-xs text-liberation-healing-sage">✅ Live Count</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Community Fund</span>
+                    <div className="text-right">
+                      <span className="text-liberation-pride-purple font-bold">£50K</span>
+                      <div className="text-xs text-gray-500">🎯 Target Goal</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Creator Sovereignty</span>
+                    <div className="text-right">
+                      <span className="text-liberation-pride-pink font-bold">75%</span>
+                      <div className="text-xs text-liberation-pride-pink">✅ Guaranteed</div>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-center space-x-2">
-                <div className="w-3 h-3 bg-liberation-pride-pink rounded-full animate-pulse"></div>
-                <div className="w-3 h-3 bg-liberation-sovereignty-gold rounded-full animate-pulse delay-100"></div>
-                <div className="w-3 h-3 bg-liberation-pride-purple rounded-full animate-pulse delay-200"></div>
-                <div className="w-3 h-3 bg-liberation-healing-sage rounded-full animate-pulse delay-300"></div>
+                {/* Social Links */}
+                <div className="mt-8 pt-6 border-t border-gray-700">
+                  <h4 className="text-sm font-bold text-liberation-pride-purple mb-4 uppercase tracking-wide">Community Connections</h4>
+                  <div className="flex space-x-4">
+                    <button className="bg-liberation-pride-pink/10 hover:bg-liberation-pride-pink/20 border border-liberation-pride-pink/30 text-liberation-pride-pink px-4 py-2 rounded-lg font-medium text-sm transition-colors">
+                      Discord
+                    </button>
+                    <button className="bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold px-4 py-2 rounded-lg font-medium text-sm transition-colors">
+                      WhatsApp
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Copyright & Final Message with Transparency Note */}
+            <div className="border-t border-liberation-pride-purple/20 pt-8 text-center">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <img
+                  src="/Branding and logos/blkout_logo_roundel_colour.png"
+                  alt="BLKOUT"
+                  className="h-8 w-8 object-contain"
+                  onError={(e) => e.currentTarget.style.display = 'none'}
+                />
+                <p className="text-gray-500 font-medium">
+                  © 2024 BLKOUT Liberation Platform. Built by community, for community.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-liberation-pride-pink rounded-full animate-pulse"></div>
+                  <span className="text-gray-600 text-sm font-medium">Liberation in Progress</span>
+                  <div className="w-2 h-2 bg-liberation-sovereignty-gold rounded-full animate-pulse delay-150"></div>
+                </div>
+              </div>
+
+              {/* Transparency Statement */}
+              <div className="bg-liberation-healing-sage/5 border border-liberation-healing-sage/20 rounded-lg px-6 py-4 max-w-2xl mx-auto">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <Shield className="h-4 w-4 text-liberation-healing-sage" />
+                  <span className="text-liberation-healing-sage font-bold text-sm uppercase tracking-wide">Platform Transparency</span>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  This platform features both live community features and sample data demonstrations.
+                  All sample content is clearly labeled. Admin access enables real content creation and community management.
+                </p>
               </div>
             </div>
           </div>

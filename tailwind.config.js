@@ -43,10 +43,40 @@ export default {
         '22': '5.5rem',   // 88px - generous touch areas
       },
       animation: {
-        // Gentle animations for trauma-informed UX
-        'gentle-fade': 'fadeIn 0.8s ease-in-out',
-        'soft-slide': 'slideIn 0.6s ease-out',
-        'celebration': 'bounce 1s ease-in-out',
+        // Professional animations for inspiring UX
+        'gentle-fade': 'fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        'soft-slide': 'slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        'celebration': 'celebration 2s ease-in-out',
+        'float': 'gentleFloat 3s ease-in-out infinite',
+        'liberation-glow': 'liberationGlow 4s ease-in-out infinite',
+        'scroll-fast': 'scroll 15s linear infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideIn: {
+          '0%': { opacity: '0', transform: 'translateX(30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        celebration: {
+          '0%, 100%': { transform: 'scale(1) rotate(0deg)' },
+          '25%': { transform: 'scale(1.02) rotate(0.5deg)' },
+          '75%': { transform: 'scale(1.02) rotate(-0.5deg)' },
+        },
+        gentleFloat: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        liberationGlow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(255, 105, 180, 0.1)' },
+          '50%': { boxShadow: '0 0 40px rgba(255, 105, 180, 0.3), 0 0 60px rgba(139, 0, 139, 0.2)' },
+        },
+        scroll: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
     },
   },
