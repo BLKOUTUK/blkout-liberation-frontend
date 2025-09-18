@@ -706,7 +706,7 @@ export default function App(): React.JSX.Element {
                 {/* Hero Description */}
                 <p className="text-2xl lg:text-3xl text-gray-300 font-medium mb-12 leading-relaxed max-w-4xl mx-auto">
                   <span className="text-liberation-pride-pink font-bold">Black Queer Men</span> building community.
-                  Real connections, real support, <span className="text-liberation-healing-sage font-bold">real change</span>.
+                  Real connections, co-operative ownership, <span className="text-liberation-healing-sage font-bold">collective power</span>.
                 </p>
 
                 {/* Hero Actions */}
@@ -960,46 +960,6 @@ export default function App(): React.JSX.Element {
                     </button>
                   </div>
 
-                  {/* Chrome Extension */}
-                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-love-fuchsia/20 rounded-3xl p-8 hover:border-liberation-love-fuchsia/40 transition-all duration-300 group">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 bg-liberation-love-fuchsia/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-love-fuchsia/30 transition-colors">
-                        <Shield className="h-6 w-6 text-liberation-love-fuchsia" />
-                      </div>
-                      <div className="text-xs bg-liberation-love-fuchsia/20 text-liberation-love-fuchsia px-3 py-1 rounded-full font-bold">
-                        EXTENSION
-                      </div>
-                    </div>
-
-                    <h3 className="text-2xl font-black text-white mb-3">CHROME EXTENSION</h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed">
-                      One-click community event and article submissions with auto-detection
-                    </p>
-
-                    <div className="bg-liberation-love-fuchsia/10 rounded-lg p-4 mb-6">
-                      <div className="text-liberation-love-fuchsia font-bold text-sm mb-2">Features:</div>
-                      <div className="text-gray-300 text-sm space-y-1">
-                        <div>• Auto-detects events from Eventbrite, Facebook, Meetup</div>
-                        <div>• Right-click context menu submissions</div>
-                        <div>• Smart pre-filling of form fields</div>
-                        <div>• Bulk content creation for community</div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <a
-                        href="/Fallback images/green images/blkout-extension-v1.0.1/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full bg-liberation-love-fuchsia/10 hover:bg-liberation-love-fuchsia/20 border border-liberation-love-fuchsia/30 text-liberation-love-fuchsia py-3 rounded-xl font-bold transition-colors flex items-center justify-center"
-                      >
-                        Download Extension v1.0.1
-                      </a>
-                      <div className="text-xs text-gray-500 text-center">
-                        Installation: chrome://extensions → Enable Developer Mode → Load Unpacked
-                      </div>
-                    </div>
-                  </div>
 
                   {/* Community News */}
                   <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/20 rounded-3xl p-8 hover:border-liberation-sovereignty-gold/40 transition-all duration-300 group">
@@ -1053,7 +1013,107 @@ export default function App(): React.JSX.Element {
               </div>
             </section>
 
+            {/* COLLECTIVE ACTION SECTION */}
+            <section className="py-16 px-8 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+              <div className="max-w-4xl mx-auto">
+                {/* Section Header */}
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl font-black text-white mb-4">
+                    COLLECTIVE <span className="text-liberation-healing-sage">ACTION</span>
+                  </h2>
+                  <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    Community submissions create better results for everyone. Add your voice to our platform.
+                  </p>
+                </div>
 
+                {/* Action Options Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Manual Submissions */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-healing-sage/20 rounded-3xl p-8 hover:border-liberation-healing-sage/40 transition-all duration-300 group">
+                    <div className="flex items-center mb-6">
+                      <div className="w-12 h-12 bg-liberation-healing-sage/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-healing-sage/30 transition-colors mr-4">
+                        <Heart className="h-6 w-6 text-liberation-healing-sage" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-white">Manual Submissions</h3>
+                        <p className="text-gray-400 text-sm">Direct community input</p>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Share events, news, and stories directly through our platform. Every submission strengthens our community.
+                    </p>
+
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => requireAdminAuth('Create Liberation Event', 'event')}
+                        className="w-full bg-liberation-pride-purple/10 hover:bg-liberation-pride-purple/20 border border-liberation-pride-purple/30 text-liberation-pride-purple py-3 rounded-xl font-bold transition-colors"
+                      >
+                        Submit Event
+                      </button>
+                      <button
+                        onClick={() => requireAdminAuth('Create News Article', 'news')}
+                        className="w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold transition-colors"
+                      >
+                        Submit News
+                      </button>
+                      <button
+                        onClick={() => requireAdminAuth('Share Liberation Story', 'story')}
+                        className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-3 rounded-xl font-bold transition-colors"
+                      >
+                        Share Story
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Chrome Extension */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/20 rounded-3xl p-8 hover:border-liberation-sovereignty-gold/40 transition-all duration-300 group">
+                    <div className="flex items-center mb-6">
+                      <div className="w-12 h-12 bg-liberation-sovereignty-gold/20 rounded-2xl flex items-center justify-center group-hover:bg-liberation-sovereignty-gold/30 transition-colors mr-4">
+                        <DollarSign className="h-6 w-6 text-liberation-sovereignty-gold" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-white">Chrome Extension</h3>
+                        <p className="text-gray-400 text-sm">One-click submissions</p>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      Automatically detect and submit events from across the web. Transform browsing into community building.
+                    </p>
+
+                    <div className="space-y-3">
+                      <a
+                        href="/dist/Fallback%20images/green%20images/blkout-extension-v1.0.1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold text-center transition-colors"
+                      >
+                        Download Extension
+                      </a>
+                      <div className="text-center">
+                        <div className="text-gray-500 text-xs mb-1">Installation Guide</div>
+                        <div className="text-gray-400 text-xs leading-relaxed">
+                          Load unpacked in chrome://extensions with Developer Mode enabled
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Impact Statement */}
+                <div className="mt-12 text-center">
+                  <div className="bg-gradient-to-r from-liberation-pride-purple/10 via-liberation-healing-sage/10 to-liberation-sovereignty-gold/10 border border-liberation-healing-sage/20 rounded-2xl p-6">
+                    <p className="text-liberation-healing-sage font-bold text-lg mb-2">
+                      "Collective action leads to better results for all"
+                    </p>
+                    <p className="text-gray-400 text-sm">
+                      Every community member's contribution amplifies our shared liberation platform
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
             {/* COMMUNITY STORIES SECTION */}
             <section className="py-24 px-8">
@@ -1180,11 +1240,11 @@ export default function App(): React.JSX.Element {
               <div className="absolute inset-0 flex items-center justify-center text-white">
                 <div className="text-center">
                   <h1 className="text-5xl font-black font-sans tracking-tight mb-2">
-                    SOVEREIGNTY
+                    CO-OPERATIVE
                   </h1>
-                  <p className="text-xl font-bold opacity-90">75% CREATOR CONTROL</p>
+                  <p className="text-xl font-bold opacity-90">MEMBER-OWNED COMMUNITY</p>
                   <div className="mt-4 text-liberation-sovereignty-gold font-bold text-lg">
-                    ECONOMIC LIBERATION GUARANTEED
+                    ECONOMIC LIBERATION THROUGH COOPERATION
                   </div>
                 </div>
               </div>
@@ -1206,30 +1266,30 @@ export default function App(): React.JSX.Element {
                   <div className="flex items-center space-x-4 mb-6">
                     <DollarSign className="h-8 w-8 text-liberation-sovereignty-gold" aria-hidden="true" />
                     <h2 className="text-3xl font-black text-liberation-sovereignty-gold font-sans">
-                      CREATOR SOVEREIGNTY
+                      CO-OPERATIVE OWNERSHIP
                     </h2>
                   </div>
 
                   <div className="bg-liberation-sovereignty-gold/20 border-2 border-liberation-sovereignty-gold rounded-xl p-6 mb-6">
                     <h3 className="text-2xl font-black text-liberation-sovereignty-gold mb-4">
-                      75% GUARANTEED
+                      POINTS-BASED VALUE RECOGNITION
                     </h3>
                     <p className="text-white font-bold text-lg leading-relaxed">
-                      Your economic empowerment is mathematically enforced through smart contracts and community governance.
-                      You retain 75% minimum of all revenue generated from your contributions.
+                      Volunteer contributions earn points toward future paid work opportunities.
+                      Members collectively decide how surplus funds support community priorities.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-liberation-sovereignty-gold/10 rounded-lg p-4">
-                      <div className="text-liberation-sovereignty-gold font-bold text-sm mb-2">REVENUE SPLIT</div>
-                      <div className="text-white font-black text-2xl">75% YOURS</div>
-                      <div className="text-liberation-sovereignty-gold/80 text-sm">25% platform development</div>
+                      <div className="text-liberation-sovereignty-gold font-bold text-sm mb-2">MEMBER OWNERSHIP</div>
+                      <div className="text-white font-black text-2xl">100% CO-OP</div>
+                      <div className="text-liberation-sovereignty-gold/80 text-sm">Member-directed surplus</div>
                     </div>
                     <div className="bg-liberation-sovereignty-gold/10 rounded-lg p-4">
-                      <div className="text-liberation-sovereignty-gold font-bold text-sm mb-2">OWNERSHIP</div>
-                      <div className="text-white font-black text-2xl">YOURS</div>
-                      <div className="text-liberation-sovereignty-gold/80 text-sm">Content rights protected</div>
+                      <div className="text-liberation-sovereignty-gold font-bold text-sm mb-2">RECOGNITION</div>
+                      <div className="text-white font-black text-2xl">POINTS</div>
+                      <div className="text-liberation-sovereignty-gold/80 text-sm">Volunteer value tracked</div>
                     </div>
                   </div>
                 </div>
@@ -1283,33 +1343,33 @@ export default function App(): React.JSX.Element {
             {/* Economic Empowerment Tools */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-gray-800 border-2 border-liberation-sovereignty-gold/30 rounded-xl p-6">
-                <h4 className="text-liberation-sovereignty-gold font-bold text-lg mb-3">REVENUE STREAMS</h4>
+                <h4 className="text-liberation-sovereignty-gold font-bold text-lg mb-3">COMMUNITY CONTRIBUTIONS</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-white">Content Creation</span>
-                    <span className="text-liberation-sovereignty-gold font-bold">£247/mo</span>
+                    <span className="text-liberation-sovereignty-gold font-bold">120 pts</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white">Event Hosting</span>
-                    <span className="text-liberation-sovereignty-gold font-bold">£89/mo</span>
+                    <span className="text-liberation-sovereignty-gold font-bold">85 pts</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white">Mentorship</span>
-                    <span className="text-liberation-sovereignty-gold font-bold">£156/mo</span>
+                    <span className="text-liberation-sovereignty-gold font-bold">95 pts</span>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gray-800 border-2 border-liberation-sovereignty-gold/30 rounded-xl p-6">
-                <h4 className="text-liberation-sovereignty-gold font-bold text-lg mb-3">WEALTH BUILDING</h4>
+                <h4 className="text-liberation-sovereignty-gold font-bold text-lg mb-3">COMMUNITY FUNDS</h4>
                 <div className="space-y-3">
                   <div className="bg-liberation-sovereignty-gold/10 rounded p-3">
-                    <div className="text-liberation-sovereignty-gold font-bold text-sm">COMMUNITY FUND</div>
-                    <div className="text-white text-xs">Collective wealth building</div>
+                    <div className="text-liberation-sovereignty-gold font-bold text-sm">HOUSING FUND</div>
+                    <div className="text-white text-xs">Member-directed housing support</div>
                   </div>
                   <div className="bg-liberation-sovereignty-gold/10 rounded p-3">
-                    <div className="text-liberation-sovereignty-gold font-bold text-sm">SKILL SHARES</div>
-                    <div className="text-white text-xs">Knowledge exchange</div>
+                    <div className="text-liberation-sovereignty-gold font-bold text-sm">DIASPORA RIGHTS FUND</div>
+                    <div className="text-white text-xs">Migration and legal support</div>
                   </div>
                 </div>
               </div>
