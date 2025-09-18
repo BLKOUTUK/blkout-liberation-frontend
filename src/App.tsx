@@ -15,8 +15,8 @@ import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
 
-// Real backend API configuration - use local API endpoints
-const LIBERATION_API = '/api';
+// Temporary: Force mock data mode for admin testing
+const LIBERATION_API = '/api-disabled-for-testing';
 
 // Import live events API at the top level
 import { eventsAPI } from './services/events-api';
