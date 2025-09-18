@@ -12,6 +12,8 @@ import {
 } from '@/lib/liberation-utils';
 import AdminAuth, { checkAdminAuth } from '@/components/admin/AdminAuth';
 import AboutUs from '@/components/pages/AboutUs';
+import NewsPage from '@/components/pages/NewsPage';
+import StoryArchive from '@/components/pages/StoryArchive';
 
 // Real backend API configuration
 const LIBERATION_API = 'https://blkout-backend-ppl502bwq-robs-projects-54d653d3.vercel.app/api';
@@ -28,7 +30,7 @@ import { eventsAPI } from './services/events-api';
  */
 
 // Navigation tab type
-type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about';
+type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about' | 'news' | 'stories';
 
 // Liberation Quotes Collection - Powerful voices from our community
 const LIBERATION_QUOTES = [
@@ -1030,12 +1032,20 @@ export default function App(): React.JSX.Element {
                       )}
                     </div>
 
-                    <button
-                      onClick={() => requireAdminAuth('Create News Article', 'news')}
-                      className="w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold transition-colors"
-                    >
-                      Write Article <span className="text-xs opacity-70">(Admin)</span>
-                    </button>
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => setActiveTab('news')}
+                        className="w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold transition-colors"
+                      >
+                        View All Articles
+                      </button>
+                      <button
+                        onClick={() => requireAdminAuth('Create News Article', 'news')}
+                        className="w-full bg-liberation-sovereignty-gold/10 hover:bg-liberation-sovereignty-gold/20 border border-liberation-sovereignty-gold/30 text-liberation-sovereignty-gold py-3 rounded-xl font-bold text-sm transition-colors"
+                      >
+                        Write Article <span className="text-xs opacity-70">(Admin)</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1089,12 +1099,20 @@ export default function App(): React.JSX.Element {
                       )}
                     </div>
 
-                    <button
-                      onClick={() => requireAdminAuth('Share Liberation Story', 'story')}
-                      className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105"
-                    >
-                      Share Your Liberation Story <span className="text-xs opacity-70">(Admin)</span>
-                    </button>
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => setActiveTab('stories')}
+                        className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105"
+                      >
+                        View Story Archive
+                      </button>
+                      <button
+                        onClick={() => requireAdminAuth('Share Liberation Story', 'story')}
+                        className="w-full bg-liberation-healing-sage/10 hover:bg-liberation-healing-sage/20 border border-liberation-healing-sage/30 text-liberation-healing-sage py-3 rounded-2xl font-bold text-sm transition-all duration-300"
+                      >
+                        Share Your Story <span className="text-xs opacity-70">(Admin)</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Community Impact */}
@@ -1652,6 +1670,12 @@ export default function App(): React.JSX.Element {
 
       case 'about':
         return <AboutUs />;
+
+      case 'news':
+        return <NewsPage />;
+
+      case 'stories':
+        return <StoryArchive />;
 
       default:
         return null;
