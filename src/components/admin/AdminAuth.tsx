@@ -74,6 +74,12 @@ export default function AdminAuth({ onAuthenticated, onCancel, requiredAction }:
     try {
       const hashedPassword = await hashPassword(password);
 
+      // Debug logging
+      console.log('Input password:', password);
+      console.log('Generated hash:', hashedPassword);
+      console.log('Expected admin hash:', ADMIN_PASSWORD_HASH);
+      console.log('Expected moderator hash:', MODERATOR_PASSWORD_HASH);
+
       let role: 'admin' | 'moderator' | null = null;
 
       if (hashedPassword === ADMIN_PASSWORD_HASH) {
