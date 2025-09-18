@@ -14,7 +14,6 @@ import AdminAuth, { checkAdminAuth } from '@/components/admin/AdminAuth';
 import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
-import LiberationScrollytelling from '@/components/scrollytelling/LiberationScrollytelling';
 
 // Real backend API configuration
 const LIBERATION_API = 'https://blkout-backend-ppl502bwq-robs-projects-54d653d3.vercel.app/api';
@@ -31,7 +30,7 @@ import { eventsAPI } from './services/events-api';
  */
 
 // Navigation tab type
-type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about' | 'news' | 'stories' | 'story';
+type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about' | 'news' | 'stories';
 
 // Liberation Quotes Collection - Powerful voices from our community
 const LIBERATION_QUOTES = [
@@ -350,7 +349,7 @@ export default function App(): React.JSX.Element {
       id: 'community' as const,
       label: 'Share the Love',
       icon: Shield,
-      description: 'Safe spaces and <button onClick={() => setActiveTab("about")} className="text-liberation-pride-pink hover:text-liberation-pride-blue underline cursor-pointer font-bold">trauma-informed</button> support',
+      description: 'Safe spaces and trauma-informed support',
       color: liberationColors.healing.sage,
     },
     {
@@ -426,9 +425,9 @@ export default function App(): React.JSX.Element {
   };
 
   const handleExploreStory = () => {
-    setActiveTab('story');
-    setShowWelcomeModal(false);
-    setActionFeedback('Exploring our liberation story...');
+    // External link to BLKOUT scrollytelling experience
+    window.open('https://blkout-scrollytelling.vercel.app', '_blank');
+    setActionFeedback('Opening our liberation story...');
     setTimeout(() => setActionFeedback(''), 3000);
   };
 
@@ -1564,7 +1563,7 @@ export default function App(): React.JSX.Element {
                   <span className="text-green-400 font-black text-lg">✓ PASSED (94% YES)</span>
                 </div>
                 <div className="flex justify-between items-center py-3 bg-liberation-pride-purple/10 rounded-lg px-4">
-                  <span className="text-white font-bold text-lg">Add <button onClick={() => setActiveTab("about")} className="text-liberation-pride-pink hover:text-liberation-pride-blue underline cursor-pointer">trauma-informed</button> content warnings</span>
+                  <span className="text-white font-bold text-lg">Add trauma-informed content warnings</span>
                   <span className="text-green-400 font-black text-lg">✓ PASSED (89% YES)</span>
                 </div>
                 <div className="flex justify-between items-center py-3 bg-liberation-pride-purple/10 rounded-lg px-4">
@@ -1709,7 +1708,7 @@ export default function App(): React.JSX.Element {
                 TRAUMA-INFORMED SAFE SPACES
               </h3>
               <p className="text-white font-bold text-xl leading-relaxed">
-                Our community prioritizes <button onClick={() => setActiveTab("about")} className="text-liberation-pride-pink hover:text-liberation-pride-blue underline cursor-pointer font-bold">trauma-informed</button> approaches, restorative justice,
+                Our community prioritizes trauma-informed approaches, restorative justice,
                 and comprehensive support for all members. Every interaction is designed with healing in mind.
               </p>
 
@@ -1739,9 +1738,6 @@ export default function App(): React.JSX.Element {
 
       case 'stories':
         return <StoryArchive />;
-
-      case 'story':
-        return <LiberationScrollytelling onReturnToPlatform={() => setActiveTab('liberation')} />;
 
       default:
         return null;
