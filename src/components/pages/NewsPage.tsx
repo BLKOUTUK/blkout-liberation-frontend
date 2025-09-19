@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Vote, Calendar, User, ArrowRight, ArrowLeft } from 'lucide-react';
+import ContentRating from '../community/ContentRating';
+import WeeklyHighlights from '../community/WeeklyHighlights';
 
 interface NewsArticle {
   id: string;
@@ -128,7 +130,7 @@ const NewsPage: React.FC = () => {
                 The liberation newsroom is ready for community voices.
                 Be the first to control the narrative and share liberation journalism.
               </p>
-              <div className="bg-liberation-sovereignty-gold/10 border border-liberation-sovereignty-gold/20 rounded-2xl p-8 max-w-2xl mx-auto">
+              <div className="bg-liberation-sovereignty-gold/10 border border-liberation-sovereignty-gold/20 rounded-2xl p-8 max-w-2xl mx-auto mb-12">
                 <h3 className="text-liberation-sovereignty-gold font-bold text-lg mb-4">Community Journalism Principles</h3>
                 <div className="text-gray-300 text-left space-y-2">
                   <div>• Narrative sovereignty and community control</div>
@@ -137,6 +139,11 @@ const NewsPage: React.FC = () => {
                   <div>• Trauma-informed reporting and community protection</div>
                 </div>
               </div>
+
+              {/* Weekly Highlights Preview */}
+              <div className="max-w-4xl mx-auto mt-12">
+                <WeeklyHighlights maxItems={6} showNewsletter={false} />
+              </div>
             </div>
           ) : (
             /* Articles Grid */
@@ -144,7 +151,7 @@ const NewsPage: React.FC = () => {
               {filteredArticles
                 .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                 .map((article) => (
-                <article key={article.id} className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/10 rounded-2xl p-6 hover:border-liberation-sovereignty-gold/30 transition-all duration-300 group cursor-pointer">
+                <article key={article.id} className="bg-gradient-to-br from-gray-900 to-gray-800 border border-liberation-sovereignty-gold/10 rounded-2xl p-6 hover:border-liberation-sovereignty-gold/30 transition-all duration-300 group">
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs bg-liberation-sovereignty-gold/20 text-liberation-sovereignty-gold px-3 py-1 rounded-full font-bold">
@@ -153,7 +160,7 @@ const NewsPage: React.FC = () => {
                       <span className="text-xs text-gray-500">{article.readTime}</span>
                     </div>
 
-                    <h2 className="text-xl font-bold text-white mb-3 group-hover:text-liberation-sovereignty-gold transition-colors">
+                    <h2 className="text-xl font-bold text-white mb-3 group-hover:text-liberation-sovereignty-gold transition-colors cursor-pointer">
                       {article.title}
                     </h2>
 
@@ -162,7 +169,7 @@ const NewsPage: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center">
                         <User className="h-3 w-3 mr-1" />
@@ -174,9 +181,20 @@ const NewsPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center text-liberation-sovereignty-gold group-hover:translate-x-1 transition-transform">
+                    <div className="flex items-center text-liberation-sovereignty-gold hover:translate-x-1 transition-transform cursor-pointer">
                       Read More <ArrowRight className="h-3 w-3 ml-1" />
                     </div>
+                  </div>
+
+                  {/* Community Rating Component */}
+                  <div className="border-t border-gray-700 pt-4">
+                    <ContentRating
+                      contentType="article"
+                      contentId={article.id}
+                      title={article.title}
+                      compact={true}
+                      showTransparency={false}
+                    />
                   </div>
                 </article>
               ))}

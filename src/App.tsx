@@ -14,6 +14,8 @@ import AdminAuth, { checkAdminAuth } from '@/components/admin/AdminAuth';
 import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
+import EventsCalendar from '@/components/pages/EventsCalendar';
+import IVORAssistant from './components/ivor/IVORAssistant';
 
 // Temporary: Force mock data mode for admin testing - trigger rebuild
 const LIBERATION_API = '/api-disabled-for-testing-v2';
@@ -30,7 +32,7 @@ import { eventsAPI } from './services/events-api';
  */
 
 // Navigation tab type
-type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about' | 'news' | 'stories';
+type NavigationTab = 'liberation' | 'sovereignty' | 'governance' | 'community' | 'about' | 'news' | 'stories' | 'events';
 
 // Liberation Quotes Collection - Powerful voices from our community
 const LIBERATION_QUOTES = [
@@ -58,6 +60,11 @@ const LIBERATION_QUOTES = [
   { quote: "I HAVE DISCOVERED IN LIFE THAT THERE ARE WAYS OF GETTING ALMOST ANYWHERE YOU WANT TO GO, IF YOU REALLY WANT TO GO.", author: "LANGSTON HUGHES" }
 ];
 
+        {/* IVOR Assistant Modal */}
+        {showIVORAssistant && (
+          <IVORAssistant onClose={() => setShowIVORAssistant(false)} />
+        )}
+
 export default function App(): React.JSX.Element {
   // QI COMPLIANCE: State for presentation behavior only - NO business logic
   const [activeTab, setActiveTab] = useState<NavigationTab>('liberation');
@@ -77,6 +84,7 @@ export default function App(): React.JSX.Element {
   const [showEventForm, setShowEventForm] = useState(false);
   const [showNewsForm, setShowNewsForm] = useState(false);
   const [showStoryForm, setShowStoryForm] = useState(false);
+  const [showIVORAssistant, setShowIVORAssistant] = useState(false);
 
   // Admin authentication state
   const [showAdminAuth, setShowAdminAuth] = useState(false);
@@ -418,11 +426,10 @@ export default function App(): React.JSX.Element {
   };
 
   const handleAskIvor = () => {
-    // External link to IVOR integrated platform
-    window.open('https://frontend-sable-nine-12.vercel.app/', '_blank');
-    setActionFeedback('Opening IVOR AI assistant platform...');
+    setShowIVORAssistant(true);
+    setActionFeedback('Opening IVOR AI assistant...');
     setTimeout(() => setActionFeedback(''), 3000);
-  };
+  };;
 
   const handleExploreStory = () => {
     // External link to BLKOUT scrollytelling experience
@@ -2258,6 +2265,11 @@ export default function App(): React.JSX.Element {
             onCancel={handleAdminAuthCancel}
             requiredAction={pendingAdminAction}
           />
+        )}
+
+        {/* IVOR Assistant Modal */}
+        {showIVORAssistant && (
+          <IVORAssistant onClose={() => setShowIVORAssistant(false)} />
         )}
       </div>
     </div>
