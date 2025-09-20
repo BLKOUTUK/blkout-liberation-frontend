@@ -124,7 +124,7 @@ export default function WeeklyHighlights({
               contentDetails = {
                 title: article.title,
                 excerpt: article.excerpt,
-                author: article.community_members?.full_name || 'Community Author'
+                author: article.community_members?.[0]?.full_name || 'Community Author'
               };
             }
           } else if (highlight.content_type === 'event') {

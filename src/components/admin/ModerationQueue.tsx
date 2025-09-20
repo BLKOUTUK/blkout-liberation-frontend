@@ -120,16 +120,17 @@ const ModerationQueue: React.FC = () => {
             id: submission.id,
             title: submission.title,
             description: submission.content,
-            status: 'approved',
-            type: 'organizing', // Default type
-            communityValues: ['community-healing'], // Default values
+            status: 'upcoming' as 'upcoming' | 'happening-now' | 'completed' | 'cancelled',
+            type: 'organizing' as 'mutual-aid' | 'organizing' | 'education' | 'celebration' | 'support' | 'action',
+            communityValue: 'healing' as 'education' | 'mutual-aid' | 'organizing' | 'celebration' | 'healing',
             traumaInformed: true,
             accessibilityFeatures: [],
-            location: { type: 'hybrid', details: 'Community space' },
-            organizer: { id: 'community', name: submission.author },
+            location: { type: 'hybrid' as 'online' | 'in-person' | 'hybrid', details: 'Community space' },
+            organizer: { name: submission.author },
+            registration: { required: false, currentAttendees: 0 },
             date: new Date().toISOString(),
-            createdAt: new Date().toISOString(),
-            moderationNotes: notes
+            created: new Date().toISOString(),
+            updated: new Date().toISOString()
           };
           await ivorIntegration.syncEventToIVOR(eventForIVOR);
         } else if (submission.type === 'article') {
@@ -142,7 +143,7 @@ const ModerationQueue: React.FC = () => {
             category: submission.category as any,
             tags: [],
             author: { name: submission.author, id: 'community', role: 'contributor' },
-            status: 'published',
+            status: 'published' as 'draft' | 'pending' | 'published' | 'archived',
             publishedAt: new Date().toISOString(),
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),

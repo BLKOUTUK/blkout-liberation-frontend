@@ -175,4 +175,3 @@ class EventsAPIService {
 
 // Export singleton instance
 export const eventsAPI = new EventsAPIService();
-export type { LiberationEvent, EventSubmission };

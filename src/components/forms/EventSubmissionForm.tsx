@@ -83,7 +83,7 @@ const EventSubmissionForm: React.FC<EventSubmissionFormProps> = ({
       setFormData(prev => ({
         ...prev,
         [parent]: {
-          ...prev[parent as keyof EventSubmission],
+          ...(prev[parent as keyof EventSubmission] as object),
           [child]: value
         }
       }));
