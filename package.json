@@ -2,6 +2,9 @@
   "name": "blkout-liberation-frontend",
   "version": "1.0.0-liberation",
   "description": "Layer 1 Community Frontend Presentation - Liberation-focused React components",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build --mode production",
