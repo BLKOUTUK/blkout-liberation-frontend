@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
-import { ivorIntegration } from '../src/services/ivor-integration';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -76,65 +75,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const createdEvent = data[0];
 
-      // If auto-approved, sync to IVOR immediately
+      // If auto-approved, trigger BLKOUTHUB webhook
       if (autoApprove && createdEvent.status === 'approved') {
         try {
-          const eventForIVOR = {
-            id: createdEvent.id,
-            title: createdEvent.title,
-            description: createdEvent.description,
-            status: 'upcoming' as 'upcoming' | 'happening-now' | 'completed' | 'cancelled',
-            type: 'education' as 'action' | 'mutual-aid' | 'organizing' | 'education' | 'celebration' | 'support',
-            communityValue: 'healing' as 'mutual-aid' | 'organizing' | 'education' | 'celebration' | 'healing',
-            traumaInformed: true,
-            accessibilityFeatures: [],
-            location: {
-              type: 'in-person' as 'online' | 'in-person' | 'hybrid',
-              details: createdEvent.location || 'Community space'
-            },
-            organizer: { id: 'api', name: 'Community Organizer' },
-            date: createdEvent.date,
-            created: createdEvent.created_at,
-            updated: createdEvent.updated_at || createdEvent.created_at,
-            registration: {
-              required: false,
-              capacity: undefined,
-              currentAttendees: 0
-            }
-          };
+          const response = await fetch(`${req.headers.origin}/api/webhooks/blkouthub`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'approved',
+              contentType: 'event',
+              contentId: createdEvent.id,
+              moderatorId: 'api-auto-approval'
+            })
+          });
 
-          await ivorIntegration.syncEventToIVOR(eventForIVOR);
-          console.log('✅ Event auto-synced to IVOR knowledge base:', createdEvent.id);
-
-          // Also trigger BLKOUTHUB webhook for auto-approved events
-          try {
-            const response = await fetch(`${req.headers.origin}/api/webhooks/blkouthub`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'approved',
-                contentType: 'event',
-                contentId: createdEvent.id,
-                moderatorId: 'api-auto-approval'
-              })
-            });
-
-            if (response.ok) {
-              console.log('✅ Auto-approved event posted to BLKOUTHUB');
-            }
-          } catch (webhookError) {
-            console.error('BLKOUTHUB webhook failed for auto-approved event:', webhookError);
+          if (response.ok) {
+            console.log('✅ Auto-approved event posted to BLKOUTHUB');
           }
-
-        } catch (ivorError) {
-          console.error('Failed to sync auto-approved event to IVOR:', ivorError);
+        } catch (webhookError) {
+          console.error('BLKOUTHUB webhook failed for auto-approved event:', webhookError);
         }
       }
 
       return res.status(201).json({
         event: createdEvent,
         message: autoApprove
-          ? 'Event created and approved, synced to IVOR and BLKOUTHUB'
+          ? 'Event created and approved, posted to BLKOUTHUB'
           : 'Event created and submitted for moderation'
       });
     }
