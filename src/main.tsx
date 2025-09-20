@@ -30,9 +30,43 @@ rootElement.setAttribute('data-trauma-informed', 'true');
 // Initialize React root with concurrent features
 const root = ReactDOM.createRoot(rootElement);
 
+// Simple error boundary component
+class ErrorBoundary extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if ((this.state as any).hasError) {
+      return (
+        <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">BLKOUT Liberation Platform</h1>
+            <p className="text-gray-400">Platform initializing...</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+              onClick={() => window.location.reload()}
+            >
+              Reload
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return (this.props as any).children;
+  }
+}
+
 // Render liberation platform
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );
