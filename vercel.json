@@ -8,12 +8,6 @@
       "runtime": "nodejs18.x"
     }
   },
-  "routes": [
-    {
-      "src": "/((?!api/).*)",
-      "dest": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/videos/(.*)",
