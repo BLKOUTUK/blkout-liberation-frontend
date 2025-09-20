@@ -33,10 +33,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           content,
           published_at,
           status,
-          categories!left(name),
-          authors!left(
-            community_members!left(full_name)
-          )
+          category,
+          author
         `)
         .eq('status', 'published')
         .order('published_at', { ascending: false })
@@ -53,8 +51,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         title: article.title || 'Untitled',
         excerpt: article.excerpt || article.content?.substring(0, 200) + '...' || '',
         content: article.content || '',
-        category: article.categories?.name || 'general',
-        author: article.authors?.community_members?.full_name || 'BLKOUT Collective',
+        category: article.category || 'general',
+        author: article.author || 'BLKOUT Collective',
         publishedAt: article.published_at || new Date().toISOString(),
         featured: false
       })) || [];
@@ -88,7 +86,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
 
       if (autoApprove) {
-        articleData.published_at = new Date().toISOString();
+        (articleData as any).published_at = new Date().toISOString();
       }
 
       const { data, error } = await supabase
@@ -114,7 +112,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             category: 'community' as any, // Default category
             tags: [],
             author: { name: 'BLKOUT Collective', id: 'api', role: 'contributor' },
-            status: 'published',
+            status: 'published' as 'published' | 'draft' | 'pending' | 'archived',
             publishedAt: createdArticle.published_at,
             createdAt: createdArticle.created_at,
             updatedAt: createdArticle.updated_at,

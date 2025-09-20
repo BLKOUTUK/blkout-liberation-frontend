@@ -213,17 +213,17 @@ async function getWeeklyHighlights() {
 }
 
 async function getCommunityStats() {
-  const { data: totalRatings } = await supabase
+  const { count: totalRatings } = await supabase
     .from('content_ratings')
-    .select('id', { count: 'exact' });
+    .select('*', { count: 'exact', head: true });
 
-  const { data: totalEngagement } = await supabase
+  const { count: totalEngagement } = await supabase
     .from('content_engagement')
-    .select('id', { count: 'exact' });
+    .select('*', { count: 'exact', head: true });
 
-  const { data: totalReviews } = await supabase
+  const { count: totalReviews } = await supabase
     .from('event_reviews')
-    .select('id', { count: 'exact' });
+    .select('*', { count: 'exact', head: true });
 
   // Get content with highest community engagement
   const { data: topRated } = await supabase
@@ -233,16 +233,16 @@ async function getCommunityStats() {
     .limit(1);
 
   const thisWeek = getWeekStart(new Date());
-  const { data: weeklyActivity } = await supabase
+  const { count: weeklyActivity } = await supabase
     .from('content_ratings')
-    .select('id', { count: 'exact' })
+    .select('*', { count: 'exact', head: true })
     .gte('created_at', thisWeek.toISOString());
 
   return {
-    total_ratings: totalRatings?.[0]?.count || 0,
-    total_engagement: totalEngagement?.[0]?.count || 0,
-    total_reviews: totalReviews?.[0]?.count || 0,
-    weekly_activity: weeklyActivity?.[0]?.count || 0,
+    total_ratings: totalRatings || 0,
+    total_engagement: totalEngagement || 0,
+    total_reviews: totalReviews || 0,
+    weekly_activity: weeklyActivity || 0,
     top_rated_content: topRated?.[0] || null,
     last_updated: new Date().toISOString()
   };

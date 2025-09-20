@@ -83,9 +83,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             id: createdEvent.id,
             title: createdEvent.title,
             description: createdEvent.description,
-            status: 'approved',
-            type: 'community', // Default type
-            communityValues: ['community-healing'],
+            status: 'upcoming' as 'upcoming' | 'happening-now' | 'completed' | 'cancelled',
+            type: 'community',
+            communityValue: 'community-healing',
             traumaInformed: true,
             accessibilityFeatures: [],
             location: {
@@ -94,8 +94,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             },
             organizer: { id: 'api', name: 'Community Organizer' },
             date: createdEvent.date,
-            createdAt: createdEvent.created_at,
-            moderationNotes: 'Auto-approved via API'
+            created: createdEvent.created_at,
+            updated: createdEvent.updated_at || createdEvent.created_at,
+            registration: {
+              required: false,
+              capacity: undefined,
+              currentAttendees: 0
+            }
           };
 
           await ivorIntegration.syncEventToIVOR(eventForIVOR);
