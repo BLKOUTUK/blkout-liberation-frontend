@@ -85,7 +85,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             description: createdEvent.description,
             status: 'upcoming' as 'upcoming' | 'happening-now' | 'completed' | 'cancelled',
             type: 'education' as 'action' | 'mutual-aid' | 'organizing' | 'education' | 'celebration' | 'support',
-            communityValue: 'community-healing',
+            communityValue: 'healing' as 'mutual-aid' | 'organizing' | 'education' | 'celebration' | 'healing',
             traumaInformed: true,
             accessibilityFeatures: [],
             location: {
