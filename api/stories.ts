@@ -30,11 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           title,
           excerpt,
           content,
-          published_at,
-          categories!left(name),
-          authors!left(
-            community_members!left(full_name)
-          )
+          published_at
         `)
         .eq('status', 'published')
         .order('published_at', { ascending: false })
@@ -51,7 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         title: story.title || 'Untitled Story',
         excerpt: story.excerpt || story.content?.substring(0, 200) + '...' || '',
         content: story.content || '',
-        author: story.authors?.community_members?.full_name || 'Community Member',
+        author: 'Community Member',
         publishedAt: story.published_at || new Date().toISOString(),
         featured: false,
         category: 'story'

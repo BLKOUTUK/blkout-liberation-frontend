@@ -39,19 +39,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         excerpt,
         content,
         published_at,
-        source,
-        categories!left(name),
-        authors!left(
-          community_members!left(full_name)
-        )
+        source
       `)
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
-    // Apply category filter if specified
-    if (category && category !== 'all') {
-      query = query.eq('categories.name', category);
-    }
+    // Category filtering temporarily disabled until schema is properly set up
 
     // Get total count for pagination
     const { count } = await supabase
@@ -74,13 +67,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       title: article.title || 'Untitled',
       excerpt: article.excerpt || article.content?.substring(0, 200) + '...' || '',
       content: article.content || '',
-      category: article.categories?.name || 'general',
-      author: article.authors?.community_members?.full_name || 'BLKOUT Collective',
+      category: 'general',
+      author: 'BLKOUT Collective',
       publishedAt: article.published_at || new Date().toISOString(),
       readTime: `${Math.ceil((article.content?.length || 1000) / 200)} min read`,
       tags: [], // TODO: Add tag support when article_tags are connected
       imageUrl: undefined, // TODO: Add featured_image support
-      originalUrl: article.source_url || undefined
+      originalUrl: article.source || undefined
     })) || [];
 
     return res.status(200).json({
