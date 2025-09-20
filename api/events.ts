@@ -89,7 +89,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             traumaInformed: true,
             accessibilityFeatures: [],
             location: {
-              type: 'in-person',
+              type: 'in-person' as 'online' | 'in-person' | 'hybrid',
               details: createdEvent.location || 'Community space'
             },
             organizer: { id: 'api', name: 'Community Organizer' },
