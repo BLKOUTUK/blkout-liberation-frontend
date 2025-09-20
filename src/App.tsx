@@ -3,7 +3,7 @@
 // STRICT SEPARATION: Application shell only - NO business logic
 
 import React, { useState, useEffect } from 'react';
-import { Heart, DollarSign, Vote, Shield, Info, Play, Pause } from 'lucide-react';
+import { Heart, DollarSign, Vote, Shield, Info, Play } from 'lucide-react';
 import {
   cn,
   culturalUtils,
@@ -14,14 +14,10 @@ import AdminAuth, { checkAdminAuth } from '@/components/admin/AdminAuth';
 import AboutUs from '@/components/pages/AboutUs';
 import NewsPage from '@/components/pages/NewsPage';
 import StoryArchive from '@/components/pages/StoryArchive';
-import EventsCalendar from '@/components/pages/EventsCalendar';
 import IVORAssistant from './components/ivor/IVORAssistant';
 
 // Temporary: Force mock data mode for admin testing - trigger rebuild
 const LIBERATION_API = '/api-disabled-for-testing-v2';
-
-// Import live events API at the top level
-import { eventsAPI } from './services/events-api';
 
 /**
  * QI COMPLIANCE: Main BLKOUT Liberation Platform Application
@@ -59,11 +55,6 @@ const LIBERATION_QUOTES = [
   { quote: "OURS IS NOT THE STRUGGLE OF ONE DAY, ONE WEEK, OR ONE YEAR. OURS IS THE STRUGGLE OF A LIFETIME.", author: "JOHN LEWIS" },
   { quote: "I HAVE DISCOVERED IN LIFE THAT THERE ARE WAYS OF GETTING ALMOST ANYWHERE YOU WANT TO GO, IF YOU REALLY WANT TO GO.", author: "LANGSTON HUGHES" }
 ];
-
-        {/* IVOR Assistant Modal */}
-        {showIVORAssistant && (
-          <IVORAssistant onClose={() => setShowIVORAssistant(false)} />
-        )}
 
 export default function App(): React.JSX.Element {
   // QI COMPLIANCE: State for presentation behavior only - NO business logic
