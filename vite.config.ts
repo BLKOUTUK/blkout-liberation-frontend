@@ -14,16 +14,7 @@ export default defineConfig({
     // Ensure accessibility and performance for community access
     target: 'es2015',
     cssCodeSplit: true,
-    rollupOptions: {
-      output: {
-        // Optimize for low-bandwidth community access
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'liberation-ui': ['framer-motion', 'lucide-react'],
-          'accessibility': ['@radix-ui/react-accessible-icon', 'react-aria']
-        }
-      }
-    }
+    rollupOptions: {}
   },
   server: {
     // Development server accessible for community testing
