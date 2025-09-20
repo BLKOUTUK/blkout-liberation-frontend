@@ -83,7 +83,6 @@ export default function App(): React.JSX.Element {
   const [pendingFormType, setPendingFormType] = useState<'event' | 'news' | 'story' | null>(null);
 
   // Hero video state
-  const [heroVideoPlaying, setHeroVideoPlaying] = useState(true);
   const [currentHeroVideo, setCurrentHeroVideo] = useState(1);
 
   // Available hero videos
